@@ -16,36 +16,32 @@ export default function HomePage() {
     id: `series-${i}`,
     title: `Dizi ${i + 1}`,
     image: `https://picsum.photos/seed/series${i}/300/450`,
-    rating: (Math.random() * 2 + 7).toFixed(1),
-    votes: Math.floor(Math.random() * 10000),
-    description: 'Harika bir dizi!',
+    rating: (7.5 + (i % 25) / 10).toFixed(1),
+    votes: 1200 + (i * 45),
   }));
 
   const mockMovies = Array.from({ length: 24 }, (_, i) => ({
     id: `movie-${i}`,
     title: `Film ${i + 1}`,
     image: `https://picsum.photos/seed/movie${i}/300/450`,
-    rating: (Math.random() * 2 + 7).toFixed(1),
-    votes: Math.floor(Math.random() * 10000),
-    description: 'Muhteşem bir film!',
+    rating: (7.8 + (i % 22) / 10).toFixed(1),
+    votes: 2100 + (i * 67),
   }));
 
   const mockBooks = Array.from({ length: 24 }, (_, i) => ({
     id: `book-${i}`,
     title: `Kitap ${i + 1}`,
     image: `https://picsum.photos/seed/book${i}/300/450`,
-    rating: (Math.random() * 2 + 7).toFixed(1),
-    votes: Math.floor(Math.random() * 10000),
-    description: 'Etkileyici bir kitap!',
+    rating: (8.2 + (i % 18) / 10).toFixed(1),
+    votes: 800 + (i * 32),
   }));
 
   const mockPlaces = Array.from({ length: 24 }, (_, i) => ({
     id: `place-${i}`,
     title: `Yer ${i + 1}`,
     image: `https://picsum.photos/seed/place${i}/300/450`,
-    rating: (Math.random() * 2 + 7).toFixed(1),
-    votes: Math.floor(Math.random() * 10000),
-    description: 'Keşfedilmesi gereken bir yer!',
+    rating: (8.5 + (i % 15) / 10).toFixed(1),
+    votes: 500 + (i * 15),
   }));
 
   const allContent = [...mockSeries, ...mockMovies, ...mockBooks, ...mockPlaces];
