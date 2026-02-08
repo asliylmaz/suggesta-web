@@ -18,7 +18,7 @@ export default function KitapPage() {
         id: `book-${i}`,
         title: `Kitap ${i + 1}`,
         image: `https://picsum.photos/seed/book${i}/300/450`,
-        rating: (Math.random() * 2 + 7).toFixed(1),
+        rating: (8.2 + (i % 15) / 10).toFixed(1),
         year: 2020 + Math.floor(Math.random() * 5),
         category: ['Aksiyon', 'Dram', 'Komedi', 'Bilim Kurgu', 'Romantik'][Math.floor(Math.random() * 5)],
     }));
