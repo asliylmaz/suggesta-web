@@ -18,7 +18,7 @@ export default function DiziPage() {
         id: `series-${i}`,
         title: `Dizi ${i + 1}`,
         image: `https://picsum.photos/seed/series${i}/300/450`,
-        rating: (Math.random() * 2 + 7).toFixed(1),
+        rating: (8.5 + (i % 17) / 10).toFixed(1),
         year: 2020 + Math.floor(Math.random() * 5),
         category: ['Aksiyon', 'Dram', 'Komedi', 'Bilim Kurgu', 'Romantik'][Math.floor(Math.random() * 5)],
     }));

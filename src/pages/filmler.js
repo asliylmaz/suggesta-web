@@ -18,7 +18,7 @@ export default function FilmPage() {
         id: `movie-${i}`,
         title: `Film ${i + 1}`,
         image: `https://picsum.photos/seed/movie${i}/300/450`,
-        rating: (Math.random() * 2 + 7).toFixed(1),
+        rating: (8.5 + (i % 15) / 10).toFixed(1),
         year: 2020 + Math.floor(Math.random() * 5),
         category: ['Aksiyon', 'Dram', 'Komedi', 'Bilim Kurgu', 'Romantik'][Math.floor(Math.random() * 5)],
     }));
