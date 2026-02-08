@@ -8,13 +8,13 @@ export default function Header({ isLoggedIn = false }) {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
   const leftMenuItems = [
-    { label: 'Diziler', href: '#diziler' },
-    { label: 'Filmler', href: '#filmler' },
+    { label: 'Diziler', href: '/diziler' },
+    { label: 'Filmler', href: '/filmler' },
   ];
 
   const rightMenuItems = [
-    { label: 'Kitaplar', href: '#kitaplar' },
-    { label: 'Yerler', href: '#yerler' },
+    { label: 'Kitaplar', href: '/kitaplar' },
+    { label: 'Yerler', href: '/yerler' },
   ];
 
   return (
@@ -141,9 +141,6 @@ export default function Header({ isLoggedIn = false }) {
 
         {/* Floating Logo - positioned to sit in the notch */}
         <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-20 group">
-          {/* Circular border frame around logo */}
-          <div className="absolute -inset-3 rounded-full border-2 border-blue-500/30 transition-all duration-700 group-hover:border-blue-400/50 group-hover:rotate-180"></div>
-
           {/* Logo */}
           <div className="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-700 via-blue-600 to-blue-500 flex items-center justify-center font-bold text-white text-2xl shadow-2xl shadow-blue-500/40 hover:shadow-blue-500/60 transition-all duration-500 hover:scale-110 border-2 border-blue-400/30">
             <span className="relative z-10">S</span>

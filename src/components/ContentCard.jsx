@@ -5,16 +5,17 @@ import { Star, Heart, Plus } from 'lucide-react';
 
 export default function ContentCard({ item, type }) {
     const [isHovered, setIsHovered] = useState(false);
+    const isHorizontal = type === 'movies' || type === 'series' || type === 'places';
 
     return (
         <div
-            className="group relative flex-shrink-0 w-48 cursor-pointer"
+            className={`group relative flex-shrink-0 ${isHorizontal ? 'w-56 md:w-64' : 'w-36 md:w-40'} cursor-pointer`}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
-            <div className="relative overflow-hidden rounded-xl bg-card border border-border transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl group-hover:shadow-blue-500/20 group-hover:z-10">
+            <div className="relative overflow-hidden bg-card border border-border transition-all duration-300 group-hover:scale-105 group-hover:shadow-2xl group-hover:z-10">
                 {/* Image */}
-                <div className="relative aspect-[2/3] overflow-hidden bg-gradient-to-br from-blue-600/20 to-cyan-500/20">
+                <div className={`relative ${isHorizontal ? 'aspect-[16/9]' : 'aspect-[2/3]'} overflow-hidden bg-gradient-to-br from-blue-600/20 to-cyan-500/20`}>
                     <img
                         src={item.image}
                         alt={item.title}
@@ -39,19 +40,15 @@ export default function ContentCard({ item, type }) {
                             </button>
                         </div>
                     </div>
-                </div>
 
-                {/* Info */}
-                <div className="p-3">
-                    <h3 className="font-semibold text-sm truncate mb-1">{item.title}</h3>
-                    <div className="flex items-center space-x-1">
-                        <Star size={14} className="text-yellow-500 fill-yellow-500" />
-                        <span className="text-sm font-medium">{item.rating}</span>
-                        <span className="text-xs text-muted-foreground ml-1">
-                            ({item.votes})
-                        </span>
+                    {/* Rating Badge */}
+                    <div className="absolute bottom-2 right-2 flex items-center gap-1.5 bg-black/60 backdrop-blur-md px-2 py-1 rounded-sm border border-white/10 group-hover:bg-blue-500 transition-colors duration-300">
+                        <Star className="text-yellow-500 fill-yellow-500" size={12} />
+                        <span className="text-white text-xs font-bold leading-none">{item.rating}</span>
                     </div>
                 </div>
+
+
             </div>
         </div>
     );

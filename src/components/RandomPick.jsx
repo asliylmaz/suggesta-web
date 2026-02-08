@@ -44,17 +44,6 @@ export default function RandomPick({ items, title = "Bugün Ne İzlesem?" }) {
                                     className="w-full h-full object-cover"
                                 />
                             </div>
-
-                            <div className="flex-1 min-w-0">
-                                <h4 className="font-semibold mb-1 text-sm truncate">{item.title}</h4>
-                                <div className="flex items-center space-x-1 mb-1">
-                                    <Star size={14} className="text-yellow-500 fill-yellow-500" />
-                                    <span className="text-xs font-medium">{item.rating}</span>
-                                </div>
-                                <p className="text-xs text-muted-foreground line-clamp-1">
-                                    {item.description || 'Harika bir seçim!'}
-                                </p>
-                            </div>
                         </div>
                     ))}
                 </div>
