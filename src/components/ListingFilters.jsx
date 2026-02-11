@@ -26,7 +26,7 @@ export default function ListingFilters({ selectedCategory, onCategoryChange, sor
     return (
         <div className="mb-12 animate-fade-in-up">
             {/* Container */}
-            <div className="bg-card border border-border rounded-l p-6 shadow-lg">
+            <div className="bg-card border border-border rounded-none p-6 shadow-lg">
                 <div className="flex flex-col lg:flex-row gap-6">
                     {/* Category Selection */}
                     <div className="flex-1">
@@ -38,9 +38,9 @@ export default function ListingFilters({ selectedCategory, onCategoryChange, sor
                                 <button
                                     key={category.id}
                                     onClick={() => onCategoryChange(category.id)}
-                                    className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 ${selectedCategory === category.id
+                                    className={`px-4 py-2 rounded-none text-sm font-medium transition-all duration-300 ${selectedCategory === category.id
                                         ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/30 scale-105'
-                                        : 'bg-secondary text-secondary-foreground hover:bg-accent hover:scale-105'
+                                        : 'bg-secondary text-secondary-foreground hover:bg-background hover:scale-105'
                                         }`}
                                 >
                                     {category.label}
@@ -57,7 +57,7 @@ export default function ListingFilters({ selectedCategory, onCategoryChange, sor
                         <div className="relative">
                             <button
                                 onClick={() => setIsSortOpen(!isSortOpen)}
-                                className="w-full px-4 py-3 bg-secondary text-secondary-foreground rounded-xl border border-border hover:bg-accent transition-all duration-300 flex items-center justify-between group"
+                                className="w-full px-4 py-3 bg-secondary text-secondary-foreground rounded-none border border-border hover:bg-background transition-all duration-300 flex items-center justify-between group"
                             >
                                 <span className="text-sm font-medium">
                                     {sortOptions.find((opt) => opt.id === sortBy)?.label}
@@ -71,7 +71,7 @@ export default function ListingFilters({ selectedCategory, onCategoryChange, sor
 
                             {/* Dropdown */}
                             {isSortOpen && (
-                                <div className="absolute top-full left-0 right-0 mt-2 bg-popover border border-border rounded-xl shadow-2xl overflow-hidden z-50 animate-fade-in-down">
+                                <div className="absolute top-full left-0 right-0 mt-2 bg-popover border border-border rounded-none shadow-2xl overflow-hidden z-50 animate-fade-in-down">
                                     {sortOptions.map((option) => (
                                         <button
                                             key={option.id}
@@ -81,7 +81,7 @@ export default function ListingFilters({ selectedCategory, onCategoryChange, sor
                                             }}
                                             className={`w-full px-4 py-3 text-left text-sm transition-all duration-200 ${sortBy === option.id
                                                 ? 'bg-primary text-primary-foreground font-medium'
-                                                : 'text-popover-foreground hover:bg-accent'
+                                                : 'text-popover-foreground hover:bg-background'
                                                 }`}
                                         >
                                             {option.label}

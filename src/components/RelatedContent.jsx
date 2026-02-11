@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { ChevronRight, ChevronLeft, Star } from 'lucide-react';
-import ContentCard from './ContentCard'; // Assuming this exists from project context or I'll use a simple placeholder
+import ListingCard from './ListingCard';
 
 export default function RelatedContent({ type = 'movies' }) {
     // Mock related items
@@ -53,20 +53,7 @@ export default function RelatedContent({ type = 'movies' }) {
             >
                 {relatedItems.map((item) => (
                     <div key={item.id} className="min-w-[280px] md:min-w-[340px] snap-start animate-fade-in-up">
-                        {/* Simple Card Placeholder if ContentCard is not perfectly compatible */}
-                        <div className="group relative cursor-pointer space-y-3">
-                            <div className="aspect-[16/9] rounded-sm overflow-hidden border border-border bg-accent/20 group-hover:scale-[1.02] transition-all duration-500 shadow-lg group-hover:shadow-primary/20">
-                                <img src={item.image} alt={item.title} className="w-full h-full object-cover grayscale-[0.3] group-hover:grayscale-0 transition-all duration-700" />
-                                <div className="absolute top-2 right-2 bg-black/60 backdrop-blur-md px-2 py-1 rounded-sm border border-white/10 text-[10px] font-bold text-white flex items-center gap-1">
-                                    <Star size={10} className="fill-yellow-500 text-yellow-500" />
-                                    {item.rating}
-                                </div>
-                            </div>
-                            <div>
-                                <h4 className="font-bold text-sm truncate group-hover:text-primary transition-colors">{item.title}</h4>
-                                <p className="text-xs text-muted-foreground">{item.year}</p>
-                            </div>
-                        </div>
+                        <ListingCard item={item} type={type} />
                     </div>
                 ))}
             </div>

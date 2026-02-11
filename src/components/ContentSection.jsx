@@ -2,13 +2,15 @@
 
 import { useRef, useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import ContentCard from './ContentCard';
+import ListingCard from './ListingCard';
 
 export default function ContentSection({ title, items, type }) {
     const scrollRef = useRef(null);
     const [canScrollLeft, setCanScrollLeft] = useState(false);
     const [canScrollRight, setCanScrollRight] = useState(true);
     const [isVisible, setIsVisible] = useState(false);
+
+    const isHorizontal = type === 'movies' || type === 'series' || type === 'places';
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -106,9 +108,9 @@ export default function ContentSection({ title, items, type }) {
                         style={{
                             animationDelay: `${index * 50}ms`,
                         }}
-                        className={isVisible ? 'animate-fade-in-up' : ''}
+                        className={`${isVisible ? 'animate-fade-in-up' : ''} flex-shrink-0 ${isHorizontal ? 'w-56 md:w-64' : 'w-36 md:w-40'}`}
                     >
-                        <ContentCard item={item} type={type} />
+                        <ListingCard item={item} type={type} />
                     </div>
                 ))}
             </div>
