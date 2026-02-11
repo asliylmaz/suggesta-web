@@ -27,8 +27,8 @@ const Topbar = () => {
                         <span className="text-sm font-medium">Yönetici</span>
                         <span className="text-[10px] text-muted-foreground italic">Süper Admin</span>
                     </div>
-                    <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center p-0.5 border border-primary/20 group-hover:border-primary/50 transition-colors">
-                        <div className="w-full h-full rounded-md bg-primary/20 flex items-center justify-center text-primary">
+                    <div className="w-9 h-9 rounded-none bg-primary/10 flex items-center justify-center p-0.5 border border-primary/20 group-hover:border-primary/50 transition-colors">
+                        <div className="w-full h-full rounded-none bg-primary/20 flex items-center justify-center text-primary">
                             <User size={18} />
                         </div>
                     </div>

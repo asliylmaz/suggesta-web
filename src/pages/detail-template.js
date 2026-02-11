@@ -28,9 +28,9 @@ export default function DetailTemplatePage() {
     };
 
     const mockComments = [
-        { id: 1, username: 'Ahmet Yılmaz', rating: 10, date: '2 gün önce', text: 'Hayatımda izlediğim en iyi filmlerden biri. Görseller ve müzikler (Hans Zimmer!) inanılmaz.', likes: 12 },
-        { id: 2, username: 'Elif Kaya', rating: 9, date: '1 hafta önce', text: 'Bilimsel temelleri bu kadar sağlam olan bir kurgu daha önce görmemiştim. Tekrar tekrar izlenmeli.', likes: 5 },
-        { id: 3, username: 'Can Demir', rating: 10, date: '2 hafta önce', text: 'Cooper ve Murph arasındaki ilişki beni her seferinde ağlatıyor.', likes: 8 },
+        { id: 1, username: 'Ahmet Yılmaz', rating: 10, date: '2 gün önce', text: 'Hayatımda izlediğim en iyi filmlerden biri. Görseller ve müzikler (Hans Zimmer!) inanılmaz.', likes: 12, dislikes: 0 },
+        { id: 2, username: 'Elif Kaya', rating: 9, date: '1 hafta önce', text: 'Bilimsel temelleri bu kadar sağlam olan bir kurgu daha önce görmemiştim. Tekrar tekrar izlenmeli.', likes: 5, dislikes: 0 },
+        { id: 3, username: 'Can Demir', rating: 10, date: '2 hafta önce', text: 'Cooper ve Murph arasındaki ilişki beni her seferinde ağlatıyor.', likes: 8, dislikes: 0 },
     ];
 
     useEffect(() => {

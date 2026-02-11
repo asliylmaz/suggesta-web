@@ -6,6 +6,8 @@ import { useRef } from 'react';
 export default function Top10Section({ items = [], category = 'all', contentType = 'series' }) {
     const scrollContainerRef = useRef(null);
 
+    const isBooks = contentType === 'books';
+
     const types = {
         series: 'diziler',
         movies: 'filmler',
@@ -14,7 +16,8 @@ export default function Top10Section({ items = [], category = 'all', contentType
 
     const scroll = (direction) => {
         if (scrollContainerRef.current) {
-            const scrollAmount = 300; // Card width (280px) + gap (20px)
+            const cardWidth = isBooks ? 220 : 280;
+            const scrollAmount = cardWidth + 20; // width + gap
             const newScrollPosition = scrollContainerRef.current.scrollLeft + (direction === 'left' ? -scrollAmount : scrollAmount);
             scrollContainerRef.current.scrollTo({
                 left: newScrollPosition,
@@ -42,7 +45,7 @@ export default function Top10Section({ items = [], category = 'all', contentType
                 {/* Left Arrow */}
                 <button
                     onClick={() => scroll('left')}
-                    className="flex-shrink-0 z-30 w-16 h-64 flex items-center justify-center text-foreground/60 hover:text-foreground transition-all duration-300 hover:scale-110"
+                    className="flex-shrink-0 z-30 w-16 h-full min-h-[330px] flex items-center justify-center text-foreground/60 hover:text-foreground transition-all duration-300 hover:scale-110"
                     aria-label="Scroll left"
                 >
                     <svg width="60" height="200" viewBox="0 0 60 200" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -59,19 +62,19 @@ export default function Top10Section({ items = [], category = 'all', contentType
 
                     <div
                         ref={scrollContainerRef}
-                        className="flex gap-5 overflow-x-auto scrollbar-hide pb-4"
+                        className="flex gap-5 overflow-x-auto scrollbar-hide py-8 pb-12"
                     >
                         {items.map((item, index) => (
                             <div
                                 key={item.id}
-                                className="group relative animate-fade-in-up flex-shrink-0 w-[280px]"
+                                className={`group relative animate-fade-in-up flex-shrink-0 ${isBooks ? 'w-[220px]' : 'w-[280px]'}`}
                                 style={{ animationDelay: `${index * 50}ms` }}
                             >
                                 {/* Card Container */}
-                                <div className="relative overflow-hidden bg-card border border-border/50 shadow-xl hover:shadow-2xl hover:shadow-blue-500/30 transition-all duration-700 hover:scale-[1.02] hover:border-blue-500/50">
+                                <div className="relative overflow-hidden bg-card border border-border/50 shadow-xl transition-all duration-700 hover:scale-[1.02] hover:border-blue-800/50">
 
-                                    {/* Image - Horizontal aspect ratio */}
-                                    <div className="relative aspect-[16/9] overflow-hidden">
+                                    {/* Image Aspect Ratio */}
+                                    <div className={`relative ${isBooks ? 'aspect-[2/3]' : 'aspect-[16/9]'} overflow-hidden`}>
                                         {/* Animated Rank Number - Centered on image */}
                                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none transition-all duration-700 group-hover:z-0 group-hover:opacity-20">
                                             <div className="relative transition-all duration-700 group-hover:scale-[2.5] group-hover:translate-x-12 group-hover:-translate-y-6 group-hover:rotate-12">
@@ -99,19 +102,10 @@ export default function Top10Section({ items = [], category = 'all', contentType
                                             className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-[0.65]"
                                         />
 
-                                        {/* Gradient Overlay - appears on hover */}
-                                        <div className="absolute inset-0 bg-gradient-to-t from-blue-950/95 via-blue-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700" />
-
-                                        {/* Side gradient for depth */}
-                                        <div className="absolute inset-0 bg-gradient-to-r from-blue-950/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700" />
-
                                         {/* Info - slides up on hover */}
                                         <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-700 z-30">
-                                            <h3 className="text-white font-bold text-xl mb-3 line-clamp-2 drop-shadow-2xl">
-                                                {item.title}
-                                            </h3>
                                             <div className="flex items-center gap-3 text-sm">
-                                                <div className="flex items-center gap-2 bg-blue-500/90 backdrop-blur-sm px-3 py-2 rounded-lg shadow-lg">
+                                                <div className="flex items-center gap-2 bg-blue-800/90 backdrop-blur-sm px-3 py-2 rounded-lg shadow-lg">
                                                     <Star className="text-white fill-white" size={16} />
                                                     <span className="text-white font-bold text-base">{item.rating}</span>
                                                 </div>
@@ -123,8 +117,8 @@ export default function Top10Section({ items = [], category = 'all', contentType
                                     </div>
 
                                     {/* Animated border glow on hover */}
-                                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
-                                        <div className="absolute inset-0 ring-2 ring-blue-500/60 animate-pulse-slow" />
+                                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-40">
+                                        <div className="absolute inset-0 border-2 border-blue-800/60 animate-pulse-slow" />
                                     </div>
                                 </div>
                             </div>
@@ -135,7 +129,7 @@ export default function Top10Section({ items = [], category = 'all', contentType
                 {/* Right Arrow */}
                 <button
                     onClick={() => scroll('right')}
-                    className="flex-shrink-0 z-30 w-16 h-64 flex items-center justify-center text-foreground/60 hover:text-foreground transition-all duration-300 hover:scale-110"
+                    className="flex-shrink-0 z-30 w-16 h-full min-h-[330px] flex items-center justify-center text-foreground/60 hover:text-foreground transition-all duration-300 hover:scale-110"
                     aria-label="Scroll right"
                 >
                     <svg width="60" height="200" viewBox="0 0 60 200" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -146,8 +140,8 @@ export default function Top10Section({ items = [], category = 'all', contentType
 
             {/* Subtle background glow */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden -z-10">
-                <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl animate-pulse-slow" />
-                <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1s' }} />
+                <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-blue-800/5 rounded-full blur-3xl animate-pulse-slow" />
+                <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-blue-900/5 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1s' }} />
             </div>
         </section>
     );

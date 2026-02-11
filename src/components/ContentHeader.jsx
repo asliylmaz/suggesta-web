@@ -8,61 +8,47 @@ import RatingStars from '@/components/ui/RatingStars';
 
 export default function ContentHeader({ item }) {
     return (
-        <section className="relative w-full min-h-[60vh] flex items-end pb-12 overflow-hidden">
-            {/* Background Image / Cover */}
-            <div className="absolute inset-0 z-0">
+        <section className="relative h-[65vh] md:h-[75vh] min-h-[500px] overflow-hidden">
+            {/* Background Image with Cinematic Overlay */}
+            <div className="absolute inset-0">
                 <img
-                    src={item.coverImage || item.image}
+                    src={item.coverImage}
                     alt={item.title}
-                    className="w-full h-full object-cover animate-pulse-slow"
+                    className="w-full h-full object-cover"
                 />
-                {/* Gradient Overlays */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
-                <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-transparent to-transparent" />
+                {/* Multi-layered cinematic gradient */}
+                <div className="absolute inset-0 bg-gradient-to-r from-background via-background/60 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-black/40" />
             </div>
 
-            <div className="container relative z-10 mx-auto px-4 md:px-6">
-                <div className="flex flex-col md:flex-row gap-8 items-end md:items-center">
+            <div className="relative h-full container mx-auto px-4 md:px-6 flex flex-col justify-end pb-12">
+                <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-end">
 
                     {/* Content Info */}
-                    <div className="flex-1 space-y-4 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-                        <div className="flex flex-wrap gap-2">
-                            {item.categories?.map((cat) => (
-                                <Badge key={cat} variant="default" className="bg-primary/20 text-primary border-primary/30">
-                                    {cat}
-                                </Badge>
-                            ))}
-                            <Badge variant="outline" className="text-muted-foreground border-white/10">
-                                {item.year}
-                            </Badge>
-                        </div>
+                    <div className="lg:col-span-3 space-y-6">
 
-                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white drop-shadow-md leading-tight">
+
+                        <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white tracking-tight leading-none drop-shadow-2xl">
                             {item.title}
                         </h1>
 
-                        <div className="flex items-center gap-4 py-2">
-                            <div className="flex items-center gap-2 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-sm border border-white/10">
-                                <Star className="text-yellow-500 fill-yellow-500" size={18} />
-                                <span className="text-lg font-bold text-white">{item.rating}</span>
-                                <span className="text-sm text-muted-foreground ml-1">/ 10.0</span>
-                            </div>
-                            <RatingStars rating={item.rating} size={16} className="hidden sm:flex" />
+
+                        <div className="flex flex-wrap gap-4 pt-4">
+                            <Button size="lg" className="px-8 rounded-sm font-bold shadow-2xl">
+                                Puan Ver
+                            </Button>
+                            <Button variant="outline" size="lg" className="px-8 rounded-sm bg-black/20 backdrop-blur-md border border-white/10 hover:bg-white/10 text-white">
+                                Listeme Ekle
+                            </Button>
                         </div>
 
-                        {/* Action Buttons */}
-                        <div className="flex flex-wrap gap-3 pt-4">
-                            <Button size="lg" className="rounded-sm px-8 bg-primary hover:bg-primary/90 hover:scale-105 transition-all duration-300">
-                                <Plus className="mr-2 h-5 w-5" /> Favorilerime Ekle
-                            </Button>
 
-                            <Button size="lg" variant="outline" className="rounded-sm px-8 border-white/20 bg-white/5 backdrop-blur-md hover:bg-white/10 hover:scale-105 transition-all duration-300">
-                                <Star className="mr-2 h-5 w-5" /> Puan Ver
-                            </Button>
-
-                            <Button size="lg" variant="outline" className="rounded-sm px-8 border-white/20 bg-white/5 backdrop-blur-md hover:bg-white/10 hover:scale-105 transition-all duration-300">
-                                <Share2 className="mr-2 h-5 w-5" /> Paylaş
-                            </Button>
+                        <div className="flex flex-wrap items-center gap-6 text-white/90 font-medium">
+                            <div className="flex items-center gap-2 bg-primary/80 backdrop-blur-md px-3 py-1.5 rounded-sm shadow-xl">
+                                <Star className="text-white fill-white" size={18} />
+                                <span className="text-xl font-bold">{item.rating}</span>
+                            </div>
                         </div>
                     </div>
                 </div>

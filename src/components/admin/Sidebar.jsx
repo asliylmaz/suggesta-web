@@ -57,20 +57,20 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                 <div className="flex items-center justify-between h-16 px-4 border-b border-sidebar-border">
                     {!collapsed && (
                         <Link href="/" className="flex items-center gap-2 font-bold text-xl tracking-tight text-primary">
-                            <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
-                                <span className="text-primary font-bold">S</span>
+                            <div className="w-8 h-8 rounded-none bg-primary flex items-center justify-center">
+                                <span className="text-primary-foreground font-bold">S</span>
                             </div>
                             <span>Suggesta</span>
                         </Link>
                     )}
                     {collapsed && (
-                        <div className="w-8 h-8 mx-auto rounded-lg bg-primary/20 flex items-center justify-center">
-                            <span className="text-primary font-bold text-lg">S</span>
+                        <div className="w-8 h-8 mx-auto rounded-none bg-primary flex items-center justify-center">
+                            <span className="text-primary-foreground font-bold text-lg">S</span>
                         </div>
                     )}
                     <button
                         onClick={() => setCollapsed(!collapsed)}
-                        className="hidden lg:flex items-center justify-center w-8 h-8 rounded-md hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors"
+                        className="hidden lg:flex items-center justify-center w-8 h-8 rounded-none hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors"
                     >
                         {collapsed ? <Menu size={20} /> : <ChevronLeft size={20} />}
                     </button>
@@ -90,7 +90,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                                             <button
                                                 onClick={() => !collapsed && setExpandedContent(!expandedContent)}
                                                 className={cn(
-                                                    'flex items-center w-full gap-3 px-3 py-2 rounded-md transition-all duration-200 group',
+                                                    'flex items-center w-full gap-3 px-3 py-2 rounded-none transition-all duration-200 group',
                                                     isActive ? 'bg-sidebar-accent text-sidebar-accent-foreground' : 'hover:bg-sidebar-accent/50 text-sidebar-foreground/70 hover:text-sidebar-foreground'
                                                 )}
                                             >
@@ -112,7 +112,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                                                                 <Link
                                                                     href={child.href}
                                                                     className={cn(
-                                                                        'block px-3 py-1.5 rounded-md text-xs font-medium transition-colors',
+                                                                        'block px-3 py-1.5 rounded-none text-xs font-medium transition-colors',
                                                                         isChildActive ? 'text-primary' : 'text-sidebar-foreground/60 hover:text-sidebar-foreground hover:bg-sidebar-accent/30'
                                                                     )}
                                                                 >
@@ -128,8 +128,8 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                                         <Link
                                             href={item.href}
                                             className={cn(
-                                                'flex items-center gap-3 px-3 py-2 rounded-md transition-all duration-200 group',
-                                                isActive ? 'bg-sidebar-accent text-sidebar-accent-foreground' : 'hover:bg-sidebar-accent/50 text-sidebar-foreground/70 hover:text-sidebar-foreground'
+                                                'flex items-center gap-3 px-3 py-2 rounded-none transition-all duration-200 group',
+                                                isActive ? 'bg-sidebar-accent text-primary' : 'hover:bg-sidebar-accent/50 text-sidebar-foreground/70 hover:text-sidebar-foreground'
                                             )}
                                         >
                                             <item.icon size={20} className={cn('min-w-[20px]', isActive ? 'text-primary' : 'group-hover:text-primary')} />
@@ -145,8 +145,8 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                 {/* Footer Info */}
                 {!collapsed && (
                     <div className="p-4 border-t border-sidebar-border">
-                        <div className="flex items-center gap-3 p-2 rounded-lg bg-sidebar-accent/30">
-                            <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold text-xs">
+                        <div className="flex items-center gap-3 p-2 rounded-none bg-sidebar-accent/30">
+                            <div className="w-8 h-8 rounded-none bg-primary flex items-center justify-center text-primary-foreground font-bold text-xs">
                                 JD
                             </div>
                             <div className="flex-1 min-w-0">
