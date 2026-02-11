@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { login } from "@/lib/authService";
+import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/router";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,6 +12,7 @@ import {
 } from "@/components/ui/card";
 
 export default function LoginForm() {
+  const { login: contextLogin } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -29,14 +31,14 @@ export default function LoginForm() {
     try {
       setLoading(true);
       const data = await login({ email, password });
-      localStorage.setItem("token", data.accessToken);
-      router.push("/");
-      alert("Giriş başarılı");
+
+      // Context üzerinden global state'i güncelle
+      contextLogin(data.user, data.token);
+
     } catch (err) {
       setError(
         err?.response?.data?.message || "Giriş sırasında hata oluştu"
       );
-    } finally {
       setLoading(false);
     }
   };
@@ -80,6 +82,17 @@ export default function LoginForm() {
           >
             {loading ? "Giriş yapılıyor..." : "Giriş Yap"}
           </Button>
+
+          <div className="text-center">
+            <Link href="/register" className="text-sm text-blue-700 hover:underline">
+              Bir Hesabın Yok Mu? Kayıt Ol
+            </Link>
+          </div>
+          <div className="text-center">
+            <Link href="/" className="text-sm text-blue-900 hover:underline">
+              Giriş Yapmadan Devam Et
+            </Link>
+          </div>
         </form>
       </CardContent>
     </Card>

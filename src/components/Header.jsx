@@ -2,8 +2,12 @@
 
 import { useState } from 'react';
 import { Menu, X, User, LogOut } from 'lucide-react';
+import { useAuth } from "@/context/AuthContext";
 
-export default function Header({ isLoggedIn = false }) {
+export default function Header() {
+  const { user, logout } = useAuth();
+  const isLoggedIn = !!user;
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
 
@@ -19,9 +23,7 @@ export default function Header({ isLoggedIn = false }) {
 
   return (
     <header className="sticky top-0 z-50 backdrop-blur-xl bg-background/80">
-      {/* Navbar with circular notch */}
       <div className="relative">
-        {/* Main navbar */}
         <nav className="container mx-auto px-4 py-6 relative border-b border-border/40">
           <div className="flex items-center justify-center relative">
             {/* Left Menu Items */}
@@ -76,9 +78,10 @@ export default function Header({ isLoggedIn = false }) {
                         className="flex items-center space-x-2 px-4 py-3 hover:bg-accent transition-colors duration-200"
                       >
                         <User size={16} />
-                        <span>Profilim</span>
+                        <span>Profilim ({user?.username})</span>
                       </a>
                       <button
+                        onClick={logout}
                         className="w-full flex items-center space-x-2 px-4 py-3 hover:bg-accent transition-colors duration-200 text-destructive"
                       >
                         <LogOut size={16} />
@@ -134,12 +137,10 @@ export default function Header({ isLoggedIn = false }) {
           )}
         </nav>
 
-        {/* Floating Logo - positioned to sit in the notch */}
+        {/* Floating Logo */}
         <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 z-20 group">
-          {/* Logo */}
           <div className="relative w-16 h-16 rounded-none bg-primary flex items-center justify-center font-bold text-white text-2xl shadow-2xl shadow-primary/40 hover:shadow-primary/60 transition-all duration-500 hover:scale-110 border-2 border-white/20">
             <span className="relative z-10">S</span>
-            {/* Inner glow */}
             <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
           </div>
         </div>
