@@ -1,22 +1,27 @@
 'use client';
-
 import { useState, useEffect } from 'react';
 import { Shuffle, Star } from 'lucide-react';
 
 export default function RandomPick({ items, title = "Bugün Ne İzlesem?" }) {
-    // Start with two items to ensure server/client match
-    const [currentItems, setCurrentItems] = useState([items[0], items[1] || items[0]]);
+    // Start with empty array to avoid undefined errors during initial render
+    const [currentItems, setCurrentItems] = useState([]);
 
-    // Set random items after component mounts (client-side only)
+    // Set random items after component mounts or items change
     useEffect(() => {
-        const shuffledItems = [...items].sort(() => Math.random() - 0.5);
-        setCurrentItems([shuffledItems[0], shuffledItems[1]]);
+        if (items && items.length > 0) {
+            const shuffledItems = [...items].sort(() => Math.random() - 0.5);
+            setCurrentItems([shuffledItems[0], shuffledItems[1] || shuffledItems[0]]);
+        }
     }, [items]);
 
     const handleShuffle = () => {
-        const shuffledItems = [...items].sort(() => Math.random() - 0.5);
-        setCurrentItems([shuffledItems[0], shuffledItems[1]]);
+        if (items && items.length > 0) {
+            const shuffledItems = [...items].sort(() => Math.random() - 0.5);
+            setCurrentItems([shuffledItems[0], shuffledItems[1] || shuffledItems[0]]);
+        }
     };
+
+    if (currentItems.length === 0) return null;
 
     return (
         <div className="bg-gradient-to-br from-blue-600/10 via-blue-500/10 to-cyan-500/10 rounded-2xl p-6 border border-blue-500/20 relative overflow-hidden">
