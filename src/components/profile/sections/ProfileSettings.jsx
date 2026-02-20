@@ -63,7 +63,7 @@ const ProfileSettings = () => {
             </section>
 
             <div className="pt-8 border-t border-border flex justify-end">
-                <Button className="gap-2 px-8 rounded-sm shadow-xl">
+                <Button className="gap-2 px-8 rounded-none shadow-xl">
                     <Save className="size-4" />
                     Değişiklikleri Kaydet
                 </Button>

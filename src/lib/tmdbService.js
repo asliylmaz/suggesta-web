@@ -1,9 +1,11 @@
-
 import api from "./api";
 
 export const getMoviesByGenre = async (genreId, page = 1) => {
-    const { data } = await api.get(`/tmdb/genre/${genreId}`, {
-        params: { page }
+    const { data } = await api.get("/tmdb/movie/discover", {
+        params: {
+            with_genres: genreId,
+            page
+        }
     });
     return data;
 };
@@ -24,6 +26,16 @@ export const getNowPlayingMovies = async (page = 1) => {
 
 export const getMovieImages = async (id) => {
     const { data } = await api.get(`/tmdb/movie/${id}/images`);
+    return data;
+};
+
+export const getTvByGenre = async (genreId, page = 1) => {
+    const { data } = await api.get("/tmdb/tv/discover", {
+        params: {
+            with_genres: genreId,
+            page
+        }
+    });
     return data;
 };
 

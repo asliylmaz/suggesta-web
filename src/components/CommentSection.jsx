@@ -9,9 +9,9 @@ export default function CommentSection({ comments = [] }) {
         <section className="container mx-auto px-4 md:px-6 py-12 border-t border-border">
             <div className="flex items-center justify-between mb-8">
                 <h2 className="text-2xl font-bold flex items-center gap-2">
-                    <div className="h-1 w-4 bg-primary rounded-sm" />
+                    <div className="h-1 w-4 bg-primary rounded-none" />
                     <span>Yorumlar</span>
-                    <span className="text-sm font-normal text-muted-foreground bg-accent/30 px-2 py-0.5 rounded-sm">{comments.length}</span>
+                    <span className="text-sm font-normal text-muted-foreground bg-accent/30 px-2 py-0.5 rounded-none">{comments.length}</span>
                 </h2>
             </div>
 
@@ -26,7 +26,7 @@ export default function CommentSection({ comments = [] }) {
                             <CommentItem key={comment.id} comment={comment} />
                         ))
                     ) : (
-                        <div className="py-12 text-center text-muted-foreground bg-accent/5 rounded-sm border border-dashed border-border">
+                        <div className="py-12 text-center text-muted-foreground bg-accent/5 rounded-none border border-dashed border-border">
                             Henüz yorum yapılmamış. İlk yorumu sen yap!
                         </div>
                     )}

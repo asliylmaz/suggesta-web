@@ -27,7 +27,7 @@ const ProfileHeader = ({ user, onEditProfile, onLogout }) => {
                     <Button
                         variant="outline"
                         size="sm"
-                        className="rounded-full"
+                        className="rounded-none"
                         onClick={onEditProfile}
                     >
                         <UserRoundPen className="size-4" />
@@ -36,7 +36,7 @@ const ProfileHeader = ({ user, onEditProfile, onLogout }) => {
                     <Button
                         variant="ghost"
                         size="icon-sm"
-                        className="text-destructive hover:text-destructive hover:bg-destructive/10 rounded-full"
+                        className="text-destructive hover:text-destructive hover:bg-destructive/10 rounded-none"
                         onClick={onLogout}
                         title="Çıkış Yap"
                     >

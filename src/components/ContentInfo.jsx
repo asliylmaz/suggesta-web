@@ -20,7 +20,7 @@ export default function ContentInfo({ item }) {
                 <div className="lg:col-span-2 space-y-6">
                     <div>
                         <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                            <div className="h-1 w-4 bg-primary rounded-sm" />
+                            <div className="h-1 w-4 bg-primary rounded-none" />
                             <span>Açıklama</span>
                         </h2>
                         <div className="relative group">
@@ -46,14 +46,14 @@ export default function ContentInfo({ item }) {
 
                     {/* Trailer Placeholder UI */}
                     {item.hasTrailer && (
-                        <div className="mt-8 p-8 rounded-sm bg-gradient-to-br from-accent/50 to-background border border-border group cursor-pointer overflow-hidden relative">
+                        <div className="mt-8 p-8 rounded-none bg-gradient-to-br from-accent/50 to-background border border-border group cursor-pointer overflow-hidden relative">
                             <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                             <div className="relative z-10 flex items-center justify-between">
                                 <div>
                                     <h3 className="text-xl font-bold mb-2">Resmi Fragman</h3>
                                     <p className="text-sm text-muted-foreground">Bu içeriğin fragmanını şimdi izleyebilirsiniz.</p>
                                 </div>
-                                <div className="h-14 w-14 rounded-sm bg-primary flex items-center justify-center text-primary-foreground shadow-lg shadow-primary/30 group-hover:scale-110 transition-transform duration-300">
+                                <div className="h-14 w-14 rounded-none bg-primary flex items-center justify-center text-primary-foreground shadow-lg shadow-primary/30 group-hover:scale-110 transition-transform duration-300">
                                     <Play fill="currentColor" size={24} />
                                 </div>
                             </div>
@@ -63,12 +63,12 @@ export default function ContentInfo({ item }) {
 
                 {/* Info Column */}
                 <div className="lg:col-span-1">
-                    <div className="bg-card/50 backdrop-blur-sm border border-border p-6 rounded-sm sticky top-24">
+                    <div className="bg-card/50 backdrop-blur-sm border border-border p-6 rounded-none sticky top-24">
                         <h3 className="text-xl font-bold mb-6 border-b border-border pb-4">Detaylı Bilgi</h3>
                         <ul className="space-y-6">
                             {infoItems.map((info, idx) => (
                                 <li key={idx} className="flex items-start gap-4">
-                                    <div className="p-2 rounded-sm bg-accent/50 text-primary">
+                                    <div className="p-2 rounded-none bg-accent/50 text-primary">
                                         <info.icon size={20} />
                                     </div>
                                     <div>

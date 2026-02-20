@@ -1,0 +1,72 @@
+export const MOVIE_GENRES = {
+    ACTION: 28,
+    ADVENTURE: 12,
+    ANIMATION: 16,
+    COMEDY: 35,
+    CRIME: 80,
+    DOCUMENTARY: 99,
+    DRAMA: 18,
+    FAMILY: 10751,
+    FANTASY: 14,
+    HISTORY: 36,
+    HORROR: 27,
+    MUSIC: 10402,
+    MYSTERY: 9648,
+    ROMANCE: 10749,
+    SCIENCE_FICTION: 878,
+    TV_MOVIE: 10770,
+    THRILLER: 53,
+    WAR: 10752,
+    WESTERN: 37
+};
+
+export const SERIES_GENRES = {
+    ACTION_ADVENTURE: 10759,
+    ANIMATION: 16,
+    COMEDY: 35,
+    CRIME: 80,
+    DOCUMENTARY: 99,
+    DRAMA: 18,
+    FAMILY: 10751,
+    KIDS: 10762,
+    MYSTERY: 9648,
+    NEWS: 10763,
+    REALITY: 10764,
+    SCI_FI_FANTASY: 10765,
+    SOAP: 10766,
+    TALK: 10767,
+    WAR_POLITICS: 10768,
+    WESTERN: 37
+};
+
+export const GENRE_NAMES = {
+    [MOVIE_GENRES.ACTION]: 'Aksiyon',
+    [MOVIE_GENRES.ADVENTURE]: 'Macera',
+    [MOVIE_GENRES.ANIMATION]: 'Animasyon',
+    [MOVIE_GENRES.COMEDY]: 'Komedi',
+    [MOVIE_GENRES.CRIME]: 'Suç',
+    [MOVIE_GENRES.DOCUMENTARY]: 'Belgesel',
+    [MOVIE_GENRES.DRAMA]: 'Dram',
+    [MOVIE_GENRES.FAMILY]: 'Aile',
+    [MOVIE_GENRES.FANTASY]: 'Fantastik',
+    [MOVIE_GENRES.HISTORY]: 'Tarih',
+    [MOVIE_GENRES.HORROR]: 'Korku',
+    [MOVIE_GENRES.MUSIC]: 'Müzik',
+    [MOVIE_GENRES.MYSTERY]: 'Gizem',
+    [MOVIE_GENRES.ROMANCE]: 'Romantik',
+    [MOVIE_GENRES.SCIENCE_FICTION]: 'Bilim Kurgu',
+    [MOVIE_GENRES.TV_MOVIE]: 'TV Filmi',
+    [MOVIE_GENRES.THRILLER]: 'Gerilim',
+    [MOVIE_GENRES.WAR]: 'Savaş',
+    [MOVIE_GENRES.WESTERN]: 'Western',
+
+    // Series Specific
+    [SERIES_GENRES.ACTION_ADVENTURE]: 'Aksiyon & Macera',
+    [SERIES_GENRES.KIDS]: 'Çocuk',
+    [SERIES_GENRES.NEWS]: 'Haber',
+    [SERIES_GENRES.REALITY]: 'Reality',
+    [SERIES_GENRES.SCI_FI_FANTASY]: 'Bilim Kurgu & Fantastik',
+    [SERIES_GENRES.SOAP]: 'Pembe Dizi',
+    [SERIES_GENRES.TALK]: 'Talk Show',
+    [SERIES_GENRES.WAR_POLITICS]: 'Savaş & Politik'
+};

@@ -27,99 +27,79 @@ export default function Top10Section({ items = [], category = 'all', contentType
     };
 
     return (
-        <section className="mt-24 mb-12 relative">
+        <section className="mt-24 mb-12 relative border-t border-b border-white/5 py-12 bg-zinc-950/50">
             {/* Section Header */}
-            <div className="text-center mb-12 animate-fade-in-down">
+            <div className="text-center mb-16 animate-fade-in-down">
                 <div className="inline-flex items-center gap-3 mb-4">
-                    <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-3">
-                        Top10
+                    <h2 className="text-5xl md:text-7xl font-black text-white mb-3 tracking-tighter uppercase italic">
+                        Top <span className="text-primary text-glow">10</span>
                     </h2>
                 </div>
-                <p className="text-muted-foreground text-lg">
-                    {category === 'all' ? 'Tüm kategorilerden' : category} en çok beğenilen {types[contentType]}
+                <p className="text-zinc-400 text-lg uppercase tracking-widest font-medium">
+                    {category === 'all' ? 'Tüm kategorilerden' : category} en iyi {types[contentType]}
                 </p>
             </div>
 
             {/* Top 10 Slider - Horizontal scrollable */}
-            <div className="relative flex items-center gap-4 max-w-[1400px] mx-auto">
+            <div className="relative flex items-center gap-4 max-w-[1400px] mx-auto px-4">
                 {/* Left Arrow */}
                 <button
                     onClick={() => scroll('left')}
-                    className="flex-shrink-0 z-30 w-16 h-full min-h-[330px] flex items-center justify-center text-foreground/60 hover:text-foreground transition-all duration-300 hover:scale-110"
+                    className="hidden md:flex flex-shrink-0 z-30 w-12 h-full min-h-[330px] items-center justify-center text-zinc-600 hover:text-white transition-all duration-300 hover:scale-110 active:scale-95"
                     aria-label="Scroll left"
                 >
-                    <svg width="60" height="200" viewBox="0 0 60 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M50 10 L10 100 L50 190" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                    <ChevronLeft size={48} strokeWidth={1} />
                 </button>
 
                 <div className="relative flex-1 overflow-hidden">
-                    {/* Left fade overlay - fixed position */}
-                    <div className="absolute left-0 top-0 bottom-4 w-16 bg-gradient-to-r from-background to-transparent z-20 pointer-events-none" />
-
-                    {/* Right fade overlay - fixed position */}
-                    <div className="absolute right-0 top-0 bottom-4 w-16 bg-gradient-to-l from-background to-transparent z-20 pointer-events-none" />
+                    {/* Fade overlays */}
+                    <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-background to-transparent z-20 pointer-events-none" />
+                    <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-background to-transparent z-20 pointer-events-none" />
 
                     <div
                         ref={scrollContainerRef}
-                        className="flex gap-5 overflow-x-auto scrollbar-hide py-8 pb-12"
+                        className="flex gap-8 overflow-x-auto scrollbar-hide py-12 px-8"
                     >
                         {items.map((item, index) => (
                             <div
                                 key={item.id}
-                                className={`group relative animate-fade-in-up flex-shrink-0 ${isBooks ? 'w-[220px]' : 'w-[280px]'}`}
+                                className={`group relative animate-fade-in-up flex-shrink-0 ${isBooks ? 'w-[200px]' : 'w-[260px]'}`}
                                 style={{ animationDelay: `${index * 50}ms` }}
                             >
-                                {/* Card Container */}
-                                <div className="relative overflow-hidden bg-card border border-border/50 shadow-xl transition-all duration-700 hover:scale-[1.02] hover:border-blue-800/50">
+                                {/* Card Container - Sharp Edges */}
+                                <div className="relative overflow-visible">
 
-                                    {/* Image Aspect Ratio */}
-                                    <div className={`relative ${isBooks ? 'aspect-[2/3]' : 'aspect-[16/9]'} overflow-hidden`}>
-                                        {/* Animated Rank Number - Centered on image */}
-                                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none transition-all duration-700 group-hover:z-0 group-hover:opacity-20">
-                                            <div className="relative transition-all duration-700 group-hover:scale-[2.5] group-hover:translate-x-12 group-hover:-translate-y-6 group-hover:rotate-12">
-                                                {/* Glowing outline effect */}
-                                                <div className="absolute inset-0 blur-3xl bg-blue-400/60 scale-150 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                                    {/* Rank Number - BIG and BEHIND */}
+                                    <div className="absolute -left-12 bottom-0 z-20 pointer-events-none font-black text-[180px] leading-none tracking-tighter text-outline-only group-hover:text-primary/20 transition-colors duration-500"
+                                        style={{
+                                            WebkitTextStroke: '2px rgba(255,255,255,0.2)',
+                                            color: 'transparent'
+                                        }}>
+                                        {item.rank}
+                                    </div>
 
-                                                {/* Main number with darker stroke */}
-                                                <span
-                                                    className="relative text-[140px] font-black transition-all duration-700 select-none leading-none flex items-center justify-center"
-                                                    style={{
-                                                        fontFamily: 'system-ui, -apple-system, sans-serif',
-                                                        WebkitTextStroke: '3px rgba(37, 99, 235, 0.8)',
-                                                        color: 'transparent',
-                                                        textShadow: '0 0 40px rgba(59, 130, 246, 0.6), 0 0 80px rgba(37, 99, 235, 0.4)'
-                                                    }}
-                                                >
-                                                    {item.rank}
-                                                </span>
-                                            </div>
-                                        </div>
-
+                                    {/* Image Container */}
+                                    <div className={`relative ${isBooks ? 'aspect-[2/3]' : 'aspect-[2/3]'} bg-zinc-900 border border-zinc-800 transition-transform duration-500 group-hover:-translate-y-4 group-hover:scale-105 group-hover:shadow-[0_0_40px_rgba(255,255,255,0.1)] group-hover:border-primary/50 z-10`}>
                                         <img
                                             src={item.image}
                                             alt={item.title}
-                                            className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-[0.65]"
+                                            className="w-full h-full object-cover transition-all duration-500 group-hover:brightness-110"
                                         />
 
-                                        {/* Info - slides up on hover */}
-                                        <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-full group-hover:translate-y-0 transition-transform duration-700 z-30">
-                                            <div className="flex items-center gap-3 text-sm">
-                                                <div className="flex items-center gap-2 bg-blue-800/90 backdrop-blur-sm px-3 py-2 rounded-lg shadow-lg">
-                                                    <Star className="text-white fill-white" size={16} />
-                                                    <span className="text-white font-bold text-base">{item.rating}</span>
+                                        {/* Info Overlay */}
+                                        <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black via-black/80 to-transparent translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                                            <div className="flex items-center justify-between text-sm font-bold text-white">
+                                                <span>{item.title}</span>
+                                                <div className="flex items-center gap-1 text-primary">
+                                                    <Star size={12} fill="currentColor" />
+                                                    {item.rating}
                                                 </div>
-                                                <span className="text-white/90 font-medium bg-white/10 backdrop-blur-sm px-3 py-2 rounded-lg">
-                                                    {item.year}
-                                                </span>
                                             </div>
                                         </div>
                                     </div>
 
-                                    {/* Animated border glow on hover */}
-                                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-40">
-                                        <div className="absolute inset-0 border-2 border-blue-800/60 animate-pulse-slow" />
-                                    </div>
+                                    {/* Reflection Effect */}
+                                    <div className={`absolute -bottom-8 left-0 right-0 h-8 bg-gradient-to-t from-transparent to-white/10 opacity-0 group-hover:opacity-50 transition-opacity duration-300 blur-md transform scale-y-[-1] mask-image-gradient`} />
                                 </div>
                             </div>
                         ))}
@@ -129,19 +109,11 @@ export default function Top10Section({ items = [], category = 'all', contentType
                 {/* Right Arrow */}
                 <button
                     onClick={() => scroll('right')}
-                    className="flex-shrink-0 z-30 w-16 h-full min-h-[330px] flex items-center justify-center text-foreground/60 hover:text-foreground transition-all duration-300 hover:scale-110"
+                    className="hidden md:flex flex-shrink-0 z-30 w-12 h-full min-h-[330px] items-center justify-center text-zinc-600 hover:text-white transition-all duration-300 hover:scale-110 active:scale-95"
                     aria-label="Scroll right"
                 >
-                    <svg width="60" height="200" viewBox="0 0 60 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10 10 L50 100 L10 190" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                    <ChevronRight size={48} strokeWidth={1} />
                 </button>
-            </div>
-
-            {/* Subtle background glow */}
-            <div className="absolute inset-0 pointer-events-none overflow-hidden -z-10">
-                <div className="absolute top-1/2 left-1/4 w-96 h-96 bg-blue-800/5 rounded-full blur-3xl animate-pulse-slow" />
-                <div className="absolute top-1/2 right-1/4 w-96 h-96 bg-blue-900/5 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1s' }} />
             </div>
         </section>
     );

@@ -77,7 +77,7 @@ const AddContentForm = ({ hideHeaderFooter = false }) => {
                         <CardDescription>Afiş, fragman ve görselleri yükleyin.</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
-                        <div className="flex flex-col items-center justify-center border-2 border-dashed border-border rounded-xl p-10 bg-muted/30 hover:bg-muted/50 transition-colors cursor-pointer group">
+                        <div className="flex flex-col items-center justify-center border-2 border-dashed border-border rounded-none p-10 bg-muted/30 hover:bg-muted/50 transition-colors cursor-pointer group">
                             <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform">
                                 <Upload size={24} />
                             </div>

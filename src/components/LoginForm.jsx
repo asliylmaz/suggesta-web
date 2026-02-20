@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Link from "next/link";
 
 export default function LoginForm() {
   const { login: contextLogin } = useAuth();
@@ -84,12 +85,12 @@ export default function LoginForm() {
           </Button>
 
           <div className="text-center">
-            <Link href="/register" className="text-sm text-blue-700 hover:underline">
+            <Link href="/register" className="text-sm text-zinc-400 hover:text-white transition-colors hover:underline">
               Bir Hesabın Yok Mu? Kayıt Ol
             </Link>
           </div>
           <div className="text-center">
-            <Link href="/" className="text-sm text-blue-900 hover:underline">
+            <Link href="/" className="text-sm text-zinc-400 hover:text-white transition-colors hover:underline">
               Giriş Yapmadan Devam Et
             </Link>
           </div>

@@ -2,26 +2,46 @@
 
 import { ChevronDown } from 'lucide-react';
 import { useState } from 'react';
+import { MOVIE_GENRES, SERIES_GENRES, GENRE_NAMES } from '../lib/constants';
 
-export default function ListingFilters({ selectedCategory, onCategoryChange, sortBy, onSortChange }) {
+export default function ListingFilters({ selectedCategory, onCategoryChange, sortBy, onSortChange, type }) {
     const [isSortOpen, setIsSortOpen] = useState(false);
 
-    const categories = [
-        { id: 'all', label: 'Tümü' },
-        { id: 'action', label: 'Aksiyon' },
-        { id: 'drama', label: 'Dram' },
-        { id: 'comedy', label: 'Komedi' },
-        { id: 'scifi', label: 'Bilim Kurgu' },
-        { id: 'romance', label: 'Romantik' },
-    ];
+    const getCategories = () => {
 
+        const base = [{ id: 'all', label: 'Tümü' }];
+        const popular = [{ id: 'popular', label: 'Popüler' }];
+        const nowPlaying = type === 'movies' ? [{ id: 'now-playing', label: 'Vizyondakiler' }] : [];
+
+        let genreList = [];
+        if (type === 'movies') {
+            genreList = Object.values(MOVIE_GENRES).map(id => ({
+                id: id.toString(),
+                label: GENRE_NAMES[id]
+            }));
+        } else if (type === 'series') {
+            genreList = Object.values(SERIES_GENRES).map(id => ({
+                id: id.toString(),
+                label: GENRE_NAMES[id]
+            }));
+        } else {
+            // Fallback for Books/Places (Mock)
+            return [
+                { id: 'all', label: 'Tümü' },
+                { id: 'popular', label: 'Popüler' },
+                { id: 'recent', label: 'Son Eklenenler' }
+            ];
+        }
+
+        return [...base, ...popular, ...nowPlaying, ...genreList];
+    };
     const sortOptions = [
-        { id: 'date-desc', label: 'Eklenme Tarihi (Yeni → Eski)' },
-        { id: 'release-desc', label: 'Yayın Tarihi (Yeni → Eski)' },
-        { id: 'release-asc', label: 'Yayın Tarihi (Eski → Yeni)' },
-        { id: 'rating-desc', label: 'Puan (Yüksek → Düşük)' },
-        { id: 'rating-asc', label: 'Puan (Düşük → Yüksek)' },
+        { id: 'popularity.desc', label: 'Popüler' },
+        { id: 'release_date.desc', label: 'Yeni Eklenenler' },
+        { id: 'vote_average.desc', label: 'Yüksek Puanlılar' },
+        { id: 'vote_count.desc', label: 'En Çok Oy Alanlar' },
     ];
+    const categories = getCategories();
 
     return (
         <div className="mb-12 animate-fade-in-up">
@@ -38,7 +58,7 @@ export default function ListingFilters({ selectedCategory, onCategoryChange, sor
                                 <button
                                     key={category.id}
                                     onClick={() => onCategoryChange(category.id)}
-                                    className={`px-4 py-2 rounded-none text-sm font-medium transition-all duration-300 ${selectedCategory === category.id
+                                    className={`px-4 py-2 rounded-none text-sm font-medium transition-all duration-300 ${selectedCategory?.toString() === category.id
                                         ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/30 scale-105'
                                         : 'bg-secondary text-secondary-foreground hover:bg-background hover:scale-105'
                                         }`}

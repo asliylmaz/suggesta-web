@@ -26,7 +26,7 @@ const ProfileSidebar = ({ activeTab, onTabChange, className }) => {
                         key={item.id}
                         onClick={() => onTabChange(item.id)}
                         className={cn(
-                            "flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-sm transition-all border border-transparent",
+                            "flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-none transition-all border border-transparent",
                             isActive
                                 ? "bg-primary text-primary-foreground shadow-lg border-primary"
                                 : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"

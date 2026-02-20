@@ -94,10 +94,10 @@ const MyContentsList = () => {
                                                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                                                 />
                                                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                                                    <Button size="icon-sm" variant="secondary" className="rounded-full">
+                                                    <Button size="icon-sm" variant="secondary" className="rounded-none">
                                                         <Edit2 className="size-4" />
                                                     </Button>
-                                                    <Button size="icon-sm" variant="destructive" className="rounded-full">
+                                                    <Button size="icon-sm" variant="destructive" className="rounded-none">
                                                         <Trash2 className="size-4" />
                                                     </Button>
                                                 </div>
@@ -110,11 +110,11 @@ const MyContentsList = () => {
                     })}
                 </div>
             ) : (
-                <div className="flex flex-col items-center justify-center py-20 bg-muted/30 rounded-2xl border-2 border-dashed">
+                <div className="flex flex-col items-center justify-center py-20 bg-muted/30 rounded-none border-2 border-dashed">
                     <Filter className="size-12 text-muted-foreground/30 mb-4" />
                     <h3 className="text-lg font-medium text-muted-foreground">Henüz içerik eklemedin</h3>
                     <p className="text-sm text-muted-foreground/60 mt-1">Eklediğin içerikler burada görünecek.</p>
-                    <Button variant="outline" className="mt-6 rounded-full">
+                    <Button variant="outline" className="mt-6 rounded-none">
                         İçerik Ekle
                     </Button>
                 </div>

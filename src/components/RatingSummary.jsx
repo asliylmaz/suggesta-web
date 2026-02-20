@@ -23,13 +23,13 @@ export default function RatingSummary({ stats }) {
     return (
         <section className="container mx-auto px-4 md:px-6 py-12 border-t border-border">
             <h2 className="text-2xl font-bold mb-8 flex items-center gap-2">
-                <div className="h-1 w-4 bg-primary rounded-sm" />
+                <div className="h-1 w-4 bg-primary rounded-none" />
                 <span>Değerlendirmeler</span>
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
                 {/* Large Rating Display */}
-                <div className="md:col-span-4 flex flex-col items-center justify-center p-8 bg-accent/20 rounded-sm border border-border animate-fade-in-up">
+                <div className="md:col-span-4 flex flex-col items-center justify-center p-8 bg-accent/20 rounded-none border border-border animate-fade-in-up">
                     <span className="text-7xl font-black text-primary mb-2">9.2</span>
                     <div className="flex gap-1 mb-4">
                         {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
@@ -46,7 +46,7 @@ export default function RatingSummary({ stats }) {
                             <span className="text-sm font-bold w-6 flex items-center gap-1">
                                 {rating.stars} <Star size={10} className="fill-current" />
                             </span>
-                            <div className="flex-1 h-3 bg-muted rounded-sm overflow-hidden">
+                            <div className="flex-1 h-3 bg-muted rounded-none overflow-hidden">
                                 <div
                                     className="h-full bg-primary transition-all duration-1000 ease-out animate-pulse-slow"
                                     style={{ width: `${rating.percentage}%`, animationDelay: `${(10 - rating.stars) * 0.1}s` }}

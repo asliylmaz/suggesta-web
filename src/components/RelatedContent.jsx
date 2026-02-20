@@ -28,19 +28,19 @@ export default function RelatedContent({ type = 'movies' }) {
         <section className="container mx-auto px-4 md:px-6 py-12 border-t border-border overflow-hidden">
             <div className="flex items-center justify-between mb-8">
                 <h2 className="text-2xl font-bold flex items-center gap-2">
-                    <div className="h-1 w-4 bg-primary rounded-sm" />
+                    <div className="h-1 w-4 bg-primary rounded-none" />
                     <span>Benzer İçerikler</span>
                 </h2>
                 <div className="flex gap-2">
                     <button
                         onClick={() => scroll('left')}
-                        className="p-2 rounded-sm border border-border hover:bg-accent transition-all hover:scale-110 active:scale-95"
+                        className="p-2 rounded-none border border-border hover:bg-accent transition-all hover:scale-110 active:scale-95"
                     >
                         <ChevronLeft size={20} />
                     </button>
                     <button
                         onClick={() => scroll('right')}
-                        className="p-2 rounded-sm border border-border hover:bg-accent transition-all hover:scale-110 active:scale-95"
+                        className="p-2 rounded-none border border-border hover:bg-accent transition-all hover:scale-110 active:scale-95"
                     >
                         <ChevronRight size={20} />
                     </button>

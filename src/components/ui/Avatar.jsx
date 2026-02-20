@@ -9,7 +9,7 @@ const Avatar = React.forwardRef(({ className, src, alt, fallback, editable, onEd
         <div
             ref={ref}
             className={cn(
-                "relative flex shrink-0 overflow-hidden rounded-full transition-all group",
+                "relative flex shrink-0 overflow-hidden rounded-none transition-all group",
                 "ring-offset-background border-4 border-background shadow-lg",
                 className
             )}

@@ -1,10 +1,11 @@
 'use client';
 
 import { useRef, useEffect, useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 import ListingCard from './ListingCard';
 
-export default function ContentSection({ title, items, type }) {
+export default function ContentSection({ title, items, type, viewAllLink }) {
     const scrollRef = useRef(null);
     const [canScrollLeft, setCanScrollLeft] = useState(false);
     const [canScrollRight, setCanScrollRight] = useState(true);
@@ -71,24 +72,45 @@ export default function ContentSection({ title, items, type }) {
         >
             {/* Section Header */}
             <div className="flex items-center justify-between mb-6 px-4">
-                <h2 className="text-2xl md:text-3xl font-bold text-slate-300">
-                    {title}
-                </h2>
-                <div className="flex space-x-2">
-                    <button
-                        onClick={() => scroll('left')}
-                        disabled={!canScrollLeft}
-                        className="p-2 rounded-lg bg-card border border-border hover:bg-accent transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:scale-110"
-                    >
-                        <ChevronLeft size={20} />
-                    </button>
-                    <button
-                        onClick={() => scroll('right')}
-                        disabled={!canScrollRight}
-                        className="p-2 rounded-lg bg-card border border-border hover:bg-accent transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:scale-110"
-                    >
-                        <ChevronRight size={20} />
-                    </button>
+                <div className="flex items-center gap-4">
+                    {viewAllLink ? (
+                        <Link href={viewAllLink} className="group flex items-center gap-2">
+                            <h2 className="text-2xl md:text-3xl font-bold text-slate-300 group-hover:text-white transition-colors">
+                                {title}
+                            </h2>
+                            <ChevronRight className="text-slate-500 group-hover:text-primary transition-colors opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 duration-300" />
+                        </Link>
+                    ) : (
+                        <h2 className="text-2xl md:text-3xl font-bold text-slate-300">
+                            {title}
+                        </h2>
+                    )}
+                </div>
+
+                <div className="flex items-center gap-4">
+                    {viewAllLink && (
+                        <Link href={viewAllLink} className="hidden md:flex items-center text-sm font-medium text-slate-400 hover:text-primary transition-colors gap-1">
+                            Tümünü Gör
+                            <ArrowRight size={16} />
+                        </Link>
+                    )}
+
+                    <div className="flex space-x-2">
+                        <button
+                            onClick={() => scroll('left')}
+                            disabled={!canScrollLeft}
+                            className="p-2 rounded-none bg-card border border-border hover:bg-white hover:text-black transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:scale-110"
+                        >
+                            <ChevronLeft size={20} />
+                        </button>
+                        <button
+                            onClick={() => scroll('right')}
+                            disabled={!canScrollRight}
+                            className="p-2 rounded-none bg-card border border-border hover:bg-white hover:text-black transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:scale-110"
+                        >
+                            <ChevronRight size={20} />
+                        </button>
+                    </div>
                 </div>
             </div>
 

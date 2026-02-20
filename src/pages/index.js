@@ -4,29 +4,23 @@ import { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import OnboardingSlider from '../components/OnboardingSlider';
 import RandomPick from '../components/RandomPick';
-import ContentSection from '../components/ContentSection';
-import { getPopularMovies, getNowPlayingMovies, getMoviesByGenre, getPopularSeries } from '../lib/tmdbService';
+import PopularMediaSection from '../components/home/PopularMediaSection';
+import PopularBooksSection from '../components/home/PopularBooksSection';
+import PopularPlacesSection from '../components/home/PopularPlacesSection';
+import { getPopularMovies, getPopularSeries } from '../lib/tmdbService';
 
 export default function HomePage() {
-  // Toggle this to test logged in/out states
   const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [showOnboarding, setShowOnboarding] = useState(true);
 
   // Real Data State
   const [popularMovies, setPopularMovies] = useState([]);
-  const [nowPlayingMovies, setNowPlayingMovies] = useState([]);
-  const [actionMovies, setActionMovies] = useState([]);
-  const [romanceMovies, setRomanceMovies] = useState([]);
   const [popularSeries, setPopularSeries] = useState([]);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const [popular, nowPlaying, action, romance, popularSeries] = await Promise.all([
+        const [popular, popularSeriesData] = await Promise.all([
           getPopularMovies(),
-          getNowPlayingMovies(),
-          getMoviesByGenre(28), // Action
-          getMoviesByGenre(10749), // Romance
           getPopularSeries()
         ]);
 
@@ -36,14 +30,12 @@ export default function HomePage() {
           image: movie.posterUrl,
           backdrop: movie.backdropUrl,
           rating: movie.tmdbVoteAverage ? movie.tmdbVoteAverage.toFixed(1) : "0.0",
-          votes: movie.tmdbVoteCount
+          votes: movie.tmdbVoteCount,
+          year: movie.releaseDate ? new Date(movie.releaseDate).getFullYear() : '2024'
         });
 
         setPopularMovies(popular.results.map(mapToCard));
-        setNowPlayingMovies(nowPlaying.results.map(mapToCard));
-        setActionMovies(action.results.map(mapToCard));
-        setRomanceMovies(romance.results.map(mapToCard));
-        setPopularSeries(popularSeries.results.map(mapToCard));
+        setPopularSeries(popularSeriesData.results.map(mapToCard));
 
       } catch (error) {
         console.error("Failed to fetch movies:", error);
@@ -54,14 +46,6 @@ export default function HomePage() {
   }, []);
 
   // Mock data for other categories (kept for layout consistency)
-  const mockSeries = Array.from({ length: 12 }, (_, i) => ({
-    id: `series-${i}`,
-    title: `Dizi ${i + 1}`,
-    image: `https://picsum.photos/seed/series${i}/300/450`,
-    rating: (7.5 + (i % 25) / 10).toFixed(1),
-    votes: 1200 + (i * 45),
-  }));
-
   const mockBooks = Array.from({ length: 12 }, (_, i) => ({
     id: `book-${i}`,
     title: `Kitap ${i + 1}`,
@@ -82,73 +66,49 @@ export default function HomePage() {
     <div className="min-h-screen bg-background">
       <Header isLoggedIn={isLoggedIn} />
 
-      <main className="container mx-auto py-8">
-        {/* Onboarding Slider - Only for logged in users */}
-        {isLoggedIn && showOnboarding && (
-          <OnboardingSlider
-            onClose={() => setShowOnboarding(false)}
-            onDismiss={() => {
-              setShowOnboarding(false);
-              // In real app, save to localStorage or user preferences
-            }}
-          />
-        )}
+      <main className="container mx-auto py-8 pt-24">
+
+        <OnboardingSlider />
 
         {/* Random Pick Widgets - 4 separate widgets */}
-        <div className="mb-20 mt-20 px-4">
-          <h2 className="text-3xl font-bold text-slate-300 mb-6 text-center">Acaba Bugün..</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            <RandomPick items={mockSeries} title="Hangi Diziyi İzlesem?" />
-            <RandomPick items={popularMovies} title="Hangi Filmi İzlesem?" />
-            <RandomPick items={mockBooks} title="Hangi Kitabı Okusam?" />
-            <RandomPick items={mockPlaces} title="Nereye Gitsem?" />
+        <div className="mb-24 mt-8 px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-black text-white italic tracking-tighter uppercase mb-2">
+              Bugün Ne <span className="text-zinc-600">Yapsam?</span>
+            </h2>
+            <p className="text-zinc-500 font-medium tracking-widest uppercase text-sm">Sizin için seçtiklerimiz</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <RandomPick items={popularSeries} title="Dizi Önerisi" />
+            <RandomPick items={popularMovies} title="Film Önerisi" />
+            <RandomPick items={mockBooks} title="Kitap Önerisi" />
+            <RandomPick items={mockPlaces} title="Mekan Önerisi" />
           </div>
         </div>
 
-        {/* Content Sections */}
+        {/* Content Sections - Specialized Popular Lists Only */}
 
-        {/* Real TMDB Data */}
-        <ContentSection
-          title="Vizyondaki Filmler"
-          items={nowPlayingMovies}
-          type="movies"
-        />
-
-        <ContentSection
+        <PopularMediaSection
           title="Popüler Filmler"
           items={popularMovies}
           type="movies"
         />
 
-        <ContentSection
-          title="Aksiyon Filmleri"
-          items={actionMovies}
-          type="movies"
-        />
-
-        <ContentSection
-          title="Romantik Filmler"
-          items={romanceMovies}
-          type="movies"
-        />
-
-        {/* Mock Data Sections */}
-        <ContentSection
+        <PopularMediaSection
           title="Popüler Diziler"
           items={popularSeries}
           type="series"
         />
 
-        <ContentSection
-          title="Yerler"
-          items={mockPlaces}
-          type="places"
+        <PopularBooksSection
+          title="En Çok Okunanlar"
+          items={mockBooks}
         />
 
-        <ContentSection
-          title="Kitaplar"
-          items={mockBooks}
-          type="books"
+        <PopularPlacesSection
+          title="Popüler Mekanlar"
+          items={mockPlaces}
         />
 
       </main>
