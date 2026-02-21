@@ -61,12 +61,12 @@ export const GENRE_NAMES = {
     [MOVIE_GENRES.WESTERN]: 'Western',
 
     // Series Specific
-    [SERIES_GENRES.ACTION_ADVENTURE]: 'Aksiyon & Macera',
+    [SERIES_GENRES.ACTION_ADVENTURE]: 'Aksiyon',
     [SERIES_GENRES.KIDS]: 'Çocuk',
     [SERIES_GENRES.NEWS]: 'Haber',
     [SERIES_GENRES.REALITY]: 'Reality',
-    [SERIES_GENRES.SCI_FI_FANTASY]: 'Bilim Kurgu & Fantastik',
+    [SERIES_GENRES.SCI_FI_FANTASY]: 'Bilim Kurgu',
     [SERIES_GENRES.SOAP]: 'Pembe Dizi',
     [SERIES_GENRES.TALK]: 'Talk Show',
-    [SERIES_GENRES.WAR_POLITICS]: 'Savaş & Politik'
+    [SERIES_GENRES.WAR_POLITICS]: 'Savaş'
 };

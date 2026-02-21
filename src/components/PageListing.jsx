@@ -7,6 +7,7 @@ import ListingFilters from './ListingFilters';
 import Pagination from './Pagination';
 import Top10Section from './Top10Section';
 import HeroSection from './HeroSection'; // Reuse as Hero
+import CategoryVisualSelector from './CategoryVisualSelector';
 import {
     getMoviesByGenre,
     getPopularMovies, getPopularSeries,
@@ -39,6 +40,27 @@ export default function PageListing({ initialType = 'series', initialCategory = 
             return 'Tümü';
         }
         return GENRE_NAMES[cat] || cat;
+    };
+
+    const getCategoriesList = () => {
+        const base = [{ id: 'all', label: 'Tümü' }];
+        const popular = [{ id: 'popular', label: 'Popüler' }];
+        const nowPlaying = contentType === 'movies' ? [{ id: 'now-playing', label: 'Vizyonda' }] : [];
+
+        let genreList = [];
+        if (contentType === 'movies') {
+            genreList = Object.values(MOVIE_GENRES).map(id => ({
+                id: id.toString(),
+                label: GENRE_NAMES[id]
+            }));
+        } else if (contentType === 'series') {
+            genreList = Object.values(SERIES_GENRES).map(id => ({
+                id: id.toString(),
+                label: GENRE_NAMES[id]
+            }));
+        }
+
+        return [...base, ...popular, ...nowPlaying, ...genreList].map(c => ({ id: c.id, name: c.label }));
     };
 
     useEffect(() => {
@@ -104,37 +126,18 @@ export default function PageListing({ initialType = 'series', initialCategory = 
 
             <main className="pb-20">
 
-                {/* Hero Section - Dynamic for Category */}
-                {heroItems.length > 0 && (
-                    <div className="relative z-0 mb-10">
-                        <HeroSection
-                            items={heroItems}
-                            type={contentType}
-                        />
-                    </div>
-                )}
+                <div className="w-full relative z-20 mt-16">
+                    {/* Category Visual Selector */}
+                    <CategoryVisualSelector
+                        genres={getCategoriesList()}
+                        selectedCategory={selectedCategory}
+                        onCategoryChange={setSelectedCategory}
+                    />
+                </div>
 
-                <div className="container mx-auto px-4 relative z-10">
+                <div className="container mx-auto px-4 relative z-10 mt-8">
                     {/* Page Header */}
-                    <div className="flex items-end justify-between mb-8 border-b border-zinc-800 pb-4">
-                        <div>
-                            <h1 className="text-3xl font-bold text-white mb-2">
-                                {pageTitle[contentType]} <span className="text-zinc-500">/</span> <span className="text-primary">{getCategoryName(selectedCategory)}</span>
-                            </h1>
-                            <p className="text-zinc-400 text-sm">
-                                Toplam {items.length} sonuç listeleniyor
-                            </p>
-                        </div>
 
-                        {/* Filters allow switching categories within the page too */}
-                        <ListingFilters
-                            selectedCategory={selectedCategory}
-                            onCategoryChange={setSelectedCategory}
-                            sortBy={sortBy}
-                            onSortChange={setSortBy}
-                            type={contentType}
-                        />
-                    </div>
 
                     {/* Content Grid */}
                     {loading ? (

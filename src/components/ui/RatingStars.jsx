@@ -36,7 +36,7 @@ export default function RatingStars({ rating, max = 10, size = 16, interactive =
                             "transition-colors duration-200",
                             isActive(starValue)
                                 ? "text-yellow-500 fill-yellow-500"
-                                : "text-muted border-none fill-none"
+                                : "text-white/20 fill-transparent"
                         )}
                     />
                 </button>

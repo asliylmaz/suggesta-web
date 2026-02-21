@@ -35,60 +35,63 @@ const AddContentForm = ({ hideHeaderFooter = false }) => {
     return (
         <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
             {!hideHeaderFooter && (
-                <div>
-                    <h2 className="text-2xl font-semibold mb-2">Yeni İçerik Ekle</h2>
-                    <p className="text-muted-foreground">Kütüphanene yeni bir film, dizi veya kitap ekle.</p>
+                <div className="mb-8 flex flex-col items-start">
+                    <h2 className="text-3xl md:text-4xl font-black text-white italic tracking-tighter uppercase mb-2 flex items-center gap-3">
+                        İçerik <span className="text-zinc-500">Ekle</span>
+                    </h2>
+                    <div className="h-1 w-12 bg-zinc-700/50 rounded-full mb-2"></div>
+                    <p className="text-zinc-500 font-medium tracking-widest uppercase text-sm">Kütüphanene yeni bir film, dizi veya kitap ekle.</p>
                 </div>
             )}
 
             <form className="grid grid-cols-1 md:grid-cols-2 gap-6" onSubmit={(e) => e.preventDefault()}>
                 <div className="space-y-4">
                     <div className="space-y-2">
-                        <label className="text-sm font-medium">İçerik Tipi</label>
-                        <Select options={contentTypes} placeholder="Seçiniz..." />
+                        <label className="text-sm font-medium text-white/80">İçerik Tipi</label>
+                        <Select options={contentTypes} placeholder="Seçiniz..." className="bg-black/40 border-white/10 rounded-[14px] px-4 text-white/90 focus:ring-1 focus:ring-white/20 focus:border-white/30" />
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-sm font-medium">Başlık</label>
-                        <Input placeholder="İçerik başlığını girin..." />
+                        <label className="text-sm font-medium text-white/80">Başlık</label>
+                        <Input placeholder="İçerik başlığını girin..." className="bg-black/40 border-white/10 rounded-[14px] px-4 text-white/90 placeholder-white/20 focus:ring-1 focus:ring-white/20 focus:border-white/30" />
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-sm font-medium">Kategori</label>
-                        <Select options={categories} placeholder="Kategori seçiniz..." />
+                        <label className="text-sm font-medium text-white/80">Kategori</label>
+                        <Select options={categories} placeholder="Kategori seçiniz..." className="bg-black/40 border-white/10 rounded-[14px] px-4 text-white/90 focus:ring-1 focus:ring-white/20 focus:border-white/30" />
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-sm font-medium">Yayın Tarihi</label>
-                        <Input type="date" />
+                        <label className="text-sm font-medium text-white/80">Yayın Tarihi</label>
+                        <Input type="date" className="bg-black/40 border-white/10 rounded-[14px] px-4 text-white/90 focus:ring-1 focus:ring-white/20 focus:border-white/30" />
                     </div>
                     <div className="md:col-span-2 space-y-2">
-                        <label className="text-sm font-medium">Açıklama</label>
+                        <label className="text-sm font-medium text-white/80">Açıklama</label>
                         <Textarea
                             placeholder="İçerik hakkında kısa bir açıklama yazın..."
-                            className="min-h-[120px]"
+                            className="min-h-[120px] bg-black/40 border-white/10 rounded-[14px] p-4 text-white/90 placeholder-white/20 focus:ring-1 focus:ring-white/20 focus:border-white/30 resize-none"
                         />
                     </div>
                 </div>
 
-                <Card>
+                <Card className="bg-black/20 border-white/5 rounded-[22px]">
                     <CardHeader>
-                        <CardTitle>Medya</CardTitle>
-                        <CardDescription>Afiş, fragman ve görselleri yükleyin.</CardDescription>
+                        <CardTitle className="text-white/90 font-bold">Medya</CardTitle>
+                        <CardDescription className="text-zinc-500 font-medium">Afiş, fragman ve görselleri yükleyin.</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-6">
-                        <div className="flex flex-col items-center justify-center border-2 border-dashed border-border rounded-none p-10 bg-muted/30 hover:bg-muted/50 transition-colors cursor-pointer group">
-                            <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary mb-4 group-hover:scale-110 transition-transform">
+                        <div className="flex flex-col items-center justify-center border border-dashed border-white/20 rounded-[14px] p-10 bg-black/40 hover:bg-black/60 transition-colors cursor-pointer group">
+                            <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white/70 mb-4 group-hover:scale-110 transition-transform">
                                 <Upload size={24} />
                             </div>
-                            <p className="text-sm font-medium">Görsel yüklemek için tıklayın veya sürükleyin</p>
-                            <p className="text-xs text-muted-foreground mt-1">PNG, JPG (Max. 5MB. Önerilen: 1200x1600)</p>
+                            <p className="text-sm font-medium text-white/80">Görsel yüklemek için tıklayın veya sürükleyin</p>
+                            <p className="text-xs text-zinc-500 mt-1">PNG, JPG (Max. 5MB. Önerilen: 1200x1600)</p>
                         </div>
                         <div className="space-y-2">
-                            <label className="text-sm font-medium flex items-center gap-2">
+                            <label className="text-sm font-medium flex items-center gap-2 text-white/80">
                                 <Film size={14} /> Fragman Linki (YouTube / Vimeo)
                             </label>
-                            <Input placeholder="https://youtube.com/watch?v=..." />
+                            <Input placeholder="https://youtube.com/watch?v=..." className="bg-black/40 border-white/10 rounded-[14px] px-4 text-white/90 placeholder-white/20 focus:ring-1 focus:ring-white/20 focus:border-white/30" />
                         </div>
                     </CardContent>
                 </Card>
@@ -96,8 +99,14 @@ const AddContentForm = ({ hideHeaderFooter = false }) => {
 
 
                 {!hideHeaderFooter && (
-                    <div className="md:col-span-2 pt-4 border-t border-input/30">
-                        <Button className="w-full md:w-auto px-12">
+                    <div className="md:col-span-2 pt-4 border-t border-white/10 flex justify-end">
+                        <Button
+                            className="rounded-full px-8 text-black font-bold tracking-wide uppercase transition-all duration-300 transform hover:scale-105"
+                            style={{
+                                background: 'linear-gradient(90deg, #fff, #e5e5e5)',
+                                boxShadow: '0 4px 14px rgba(255,255,255,0.25)'
+                            }}
+                        >
                             İçeriği Ekle
                         </Button>
 

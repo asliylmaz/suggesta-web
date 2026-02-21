@@ -6,7 +6,6 @@ import Head from 'next/head';
 import Header from '@/components/Header';
 import ContentHeader from '@/components/ContentHeader';
 import ContentInfo from '@/components/ContentInfo';
-import RatingSummary from '@/components/RatingSummary';
 import CommentSection from '@/components/CommentSection';
 import RelatedContent from '@/components/RelatedContent';
 import { getMovieDetails, getTvDetails } from '@/lib/tmdbService';
@@ -135,9 +134,6 @@ export default function DetailPage() {
 
                 {/* Info & Description */}
                 <ContentInfo item={item} />
-
-                {/* Rating Summary */}
-                <RatingSummary />
 
                 {/* Comment Section */}
                 <CommentSection comments={mockComments} />

@@ -35,19 +35,19 @@ export default function ContentHeader({ item }) {
 
 
                         <div className="flex flex-wrap gap-4 pt-4">
-                            <Button size="lg" className="px-8 rounded-none font-bold shadow-2xl">
+                            <Button size="lg" className="px-8 rounded-full font-bold shadow-2xl">
                                 Puan Ver
                             </Button>
-                            <Button variant="outline" size="lg" className="px-8 rounded-none bg-black/20 backdrop-blur-md border border-white/10 hover:bg-white/10 text-white">
+                            <Button variant="outline" size="lg" className="px-8 rounded-full bg-black/20 backdrop-blur-md border border-white/10 hover:bg-white/10 text-white">
                                 Listeme Ekle
                             </Button>
                         </div>
 
 
                         <div className="flex flex-wrap items-center gap-6 text-white/90 font-medium">
-                            <div className="flex items-center gap-2 bg-primary/80 backdrop-blur-md px-3 py-1.5 rounded-none shadow-xl">
-                                <Star className="text-white fill-white" size={18} />
-                                <span className="text-xl font-bold">{item.rating}</span>
+                            <div className="flex items-center gap-2 bg-primary/80 backdrop-blur-md px-3 py-1.5 rounded-full shadow-xl">
+                                <Star className="text-white fill-white" size={13} />
+                                <span className="text-md font-bold">{item.rating}</span>
                             </div>
                         </div>
                     </div>

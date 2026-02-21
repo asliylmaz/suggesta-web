@@ -45,8 +45,8 @@ export default function Header() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out border-b ${isScrolled
-          ? 'bg-black/90 backdrop-blur-md border-white/5 py-3'
-          : 'bg-gradient-to-b from-black/80 to-transparent border-transparent py-5'
+        ? 'bg-black/90 backdrop-blur-md border-white/5 py-3'
+        : 'bg-gradient-to-b from-black/80 to-transparent border-transparent py-5'
         }`}
     >
       <div className="container mx-auto px-4 md:px-8 flex items-center justify-between">
@@ -136,7 +136,7 @@ export default function Header() {
               <button className="text-sm font-medium text-white/80 hover:text-white transition-colors">
                 Giriş
               </button>
-              <button className="px-5 py-2 text-sm font-bold bg-white text-black hover:bg-zinc-200 transition-colors shadow-lg hover:shadow-white/20">
+              <button className="px-5 py-2 rounded-full text-sm font-bold bg-white text-black hover:bg-zinc-200 transition-colors shadow-lg hover:shadow-white/20">
                 Kayıt Ol
               </button>
             </div>

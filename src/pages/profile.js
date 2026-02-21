@@ -28,14 +28,14 @@ export default function ProfilePage() {
     const renderSection = () => {
         if (loading) {
             return (
-                <div className="space-y-8 animate-pulse">
+                <div className="space-y-8 animate-pulse p-2">
                     <div className="space-y-4">
-                        <Skeleton className="h-10 w-1/3" />
-                        <Skeleton className="h-4 w-1/2" />
+                        <Skeleton className="h-10 w-1/3 rounded-[14px]" />
+                        <Skeleton className="h-4 w-1/2 rounded-[14px]" />
                     </div>
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
                         {[1, 2, 3, 4].map(i => (
-                            <Skeleton key={i} className="aspect-[3/4] h-auto w-full rounded-xl" />
+                            <Skeleton key={i} className="aspect-[3/4] h-auto w-full rounded-[22px]" />
                         ))}
                     </div>
                 </div>
@@ -109,8 +109,36 @@ export default function ProfilePage() {
 
                     {/* Main Content Area */}
                     <section className="lg:col-span-9 min-h-[500px]">
-                        <div className="bg-card border border-border rounded-sm p-6 md:p-8 shadow-xl">
-                            {renderSection()}
+                        <div
+                            className="p-6 md:p-8 relative overflow-hidden w-full min-h-full"
+                            style={{
+                                borderRadius: 22,
+                                background: 'rgba(255,255,255,0.02)',
+                                backdropFilter: 'blur(20px)',
+                                WebkitBackdropFilter: 'blur(20px)',
+                                border: '1px solid rgba(255,255,255,0.05)',
+                                boxShadow: '0 16px 48px rgba(0,0,0,0.50), inset 0 1px 0 rgba(255,255,255,0.05)'
+                            }}
+                        >
+                            {/* Subtle top gradient */}
+                            <div style={{
+                                position: 'absolute', top: 0, left: 0, right: 0, height: 120,
+                                background: 'radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.05) 0%, transparent 70%)',
+                                pointerEvents: 'none',
+                                zIndex: 0
+                            }} />
+
+                            {/* Shine line */}
+                            <div style={{
+                                position: 'absolute', top: 0, left: 0, right: 0, height: 1,
+                                background: 'linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent)',
+                                pointerEvents: 'none',
+                                zIndex: 0
+                            }} />
+
+                            <div className="relative z-10">
+                                {renderSection()}
+                            </div>
                         </div>
                     </section>
                 </div>

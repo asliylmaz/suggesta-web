@@ -1,3 +1,4 @@
+// src/components/RatingSummary.jsx
 'use client';
 
 import React from 'react';
@@ -21,42 +22,60 @@ export default function RatingSummary({ stats }) {
     const totalVotes = ratings.reduce((acc, curr) => acc + curr.count, 0);
 
     return (
-        <section className="container mx-auto px-4 md:px-6 py-12 border-t border-border">
-            <h2 className="text-2xl font-bold mb-8 flex items-center gap-2">
-                <div className="h-1 w-4 bg-primary rounded-none" />
-                <span>Değerlendirmeler</span>
-            </h2>
+        <div className="w-full flex mt-6 lg:mt-0">
+            <div
+                className="relative flex-1 overflow-hidden flex flex-col items-center justify-center p-5 md:p-6 transition-all duration-300 gap-4 w-full"
+                style={{
+                    borderRadius: 22,
+                    background: 'rgba(255,255,255,0.03)',
+                    backdropFilter: 'blur(20px)',
+                    WebkitBackdropFilter: 'blur(20px)',
+                    border: '1px solid rgba(255,255,255,0.10)',
+                    boxShadow: '0 16px 48px rgba(0,0,0,0.50), inset 0 1px 0 rgba(255,255,255,0.07)'
+                }}
+            >
+                {/* Subtle top gradient */}
+                <div style={{
+                    position: 'absolute', top: 0, left: 0, right: 0, height: 120,
+                    background: 'radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.04) 0%, transparent 70%)',
+                    pointerEvents: 'none',
+                }} />
 
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
-                {/* Large Rating Display */}
-                <div className="md:col-span-4 flex flex-col items-center justify-center p-8 bg-accent/20 rounded-none border border-border animate-fade-in-up">
-                    <span className="text-7xl font-black text-primary mb-2">9.2</span>
-                    <div className="flex gap-1 mb-4">
-                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i) => (
-                            <Star key={i} size={16} className="text-yellow-500 fill-yellow-500" />
+                {/* Shine line */}
+                <div style={{
+                    position: 'absolute', top: 0, left: 0, right: 0, height: 1,
+                    background: 'linear-gradient(90deg,transparent,rgba(255,255,255,0.12),transparent)',
+                    pointerEvents: 'none',
+                }} />
+
+                {/* Top: Score Box */}
+                <div className="flex flex-col items-center justify-center relative z-10 text-center w-full">
+                    <h2 className="text-lg md:text-xl font-black text-white italic tracking-tighter uppercase mb-2">
+                        İZLEYİCİLERİN <span className="text-zinc-500">Kararı</span>
+                    </h2>
+
+                    <span className="text-5xl md:text-6xl font-black text-white mb-2 tracking-tighter drop-shadow-md leading-none">9.2</span>
+                    <div className="flex gap-1 mb-2">
+                        {[1, 2, 3, 4, 5].map((i) => (
+                            <Star key={i} size={14} className="text-yellow-500 fill-yellow-500 drop-shadow-sm" />
                         ))}
                     </div>
-                    <span className="text-muted-foreground font-medium">{totalVotes} Toplam Oy</span>
+                    <span className="text-white/50 font-semibold text-[10px] tracking-[0.2em] uppercase">{totalVotes} Toplam Oy</span>
                 </div>
 
-                {/* Distribution Bars */}
-                <div className="md:col-span-8 space-y-4">
-                    {ratings.map((rating) => (
-                        <div key={rating.stars} className="flex items-center gap-4">
-                            <span className="text-sm font-bold w-6 flex items-center gap-1">
-                                {rating.stars} <Star size={10} className="fill-current" />
+                {/* Bottom: Distribution Stats as Wrap Pills */}
+                <div className="relative z-10 w-full flex flex-wrap justify-center gap-2 mt-2">
+                    {ratings.filter(r => r.percentage > 0).map((rating) => (
+                        <div key={rating.stars} className="flex items-center gap-1.5 bg-black/20 border border-white/5 px-2.5 py-1 rounded-lg">
+                            <span className="text-white/80 font-bold text-xs flex items-center gap-0.5">
+                                {rating.stars} <Star size={10} className="text-yellow-500 fill-yellow-500 opacity-90" />
                             </span>
-                            <div className="flex-1 h-3 bg-muted rounded-none overflow-hidden">
-                                <div
-                                    className="h-full bg-primary transition-all duration-1000 ease-out animate-pulse-slow"
-                                    style={{ width: `${rating.percentage}%`, animationDelay: `${(10 - rating.stars) * 0.1}s` }}
-                                />
-                            </div>
-                            <span className="text-sm text-muted-foreground w-12 text-right">%{rating.percentage}</span>
+                            <span className="text-white/40 text-[10px] font-medium">{rating.count}</span>
                         </div>
                     ))}
                 </div>
+
             </div>
-        </section>
+        </div>
     );
 }

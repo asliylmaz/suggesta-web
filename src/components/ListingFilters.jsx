@@ -4,7 +4,7 @@ import { ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 import { MOVIE_GENRES, SERIES_GENRES, GENRE_NAMES } from '../lib/constants';
 
-export default function ListingFilters({ selectedCategory, onCategoryChange, sortBy, onSortChange, type }) {
+export default function ListingFilters({ selectedCategory, onCategoryChange, sortBy, onSortChange, type, hideCategories = false }) {
     const [isSortOpen, setIsSortOpen] = useState(false);
 
     const getCategories = () => {
@@ -47,27 +47,29 @@ export default function ListingFilters({ selectedCategory, onCategoryChange, sor
         <div className="mb-12 animate-fade-in-up">
             {/* Container */}
             <div className="bg-card border border-border rounded-none p-6 shadow-lg">
-                <div className="flex flex-col lg:flex-row gap-6">
+                <div className={`flex flex-col lg:flex-row gap-6 ${hideCategories ? 'justify-end' : ''}`}>
                     {/* Category Selection */}
-                    <div className="flex-1">
-                        <label className="block text-sm font-medium text-muted-foreground mb-3">
-                            Kategori
-                        </label>
-                        <div className="flex flex-wrap gap-2">
-                            {categories.map((category) => (
-                                <button
-                                    key={category.id}
-                                    onClick={() => onCategoryChange(category.id)}
-                                    className={`px-4 py-2 rounded-none text-sm font-medium transition-all duration-300 ${selectedCategory?.toString() === category.id
-                                        ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/30 scale-105'
-                                        : 'bg-secondary text-secondary-foreground hover:bg-background hover:scale-105'
-                                        }`}
-                                >
-                                    {category.label}
-                                </button>
-                            ))}
+                    {!hideCategories && (
+                        <div className="flex-1">
+                            <label className="block text-sm font-medium text-muted-foreground mb-3">
+                                Kategori
+                            </label>
+                            <div className="flex flex-wrap gap-2">
+                                {categories.map((category) => (
+                                    <button
+                                        key={category.id}
+                                        onClick={() => onCategoryChange(category.id)}
+                                        className={`px-4 py-2 rounded-none text-sm font-medium transition-all duration-300 ${selectedCategory?.toString() === category.id
+                                            ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/30 scale-105'
+                                            : 'bg-secondary text-secondary-foreground hover:bg-background hover:scale-105'
+                                            }`}
+                                    >
+                                        {category.label}
+                                    </button>
+                                ))}
+                            </div>
                         </div>
-                    </div>
+                    )}
 
                     {/* Sorting Selection */}
                     <div className="lg:w-80">

@@ -71,17 +71,17 @@ export default function ContentSection({ title, items, type, viewAllLink }) {
                 }`}
         >
             {/* Section Header */}
-            <div className="flex items-center justify-between mb-6 px-4">
+            <div className="flex items-center justify-between mb-4 md:mb-6 px-4 md:px-8">
                 <div className="flex items-center gap-4">
                     {viewAllLink ? (
-                        <Link href={viewAllLink} className="group flex items-center gap-2">
-                            <h2 className="text-2xl md:text-3xl font-bold text-slate-300 group-hover:text-white transition-colors">
+                        <Link href={viewAllLink} className="group flex items-center gap-3">
+                            <h2 className="text-xl md:text-2xl font-bold text-white/90 group-hover:text-white transition-colors tracking-wide drop-shadow-sm font-sans">
                                 {title}
                             </h2>
-                            <ChevronRight className="text-slate-500 group-hover:text-primary transition-colors opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 duration-300" />
+                            <ChevronRight className="text-white/50 group-hover:text-white transition-all duration-300 -translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100" size={24} />
                         </Link>
                     ) : (
-                        <h2 className="text-2xl md:text-3xl font-bold text-slate-300">
+                        <h2 className="text-xl md:text-2xl font-bold text-white/90 tracking-wide drop-shadow-sm font-sans">
                             {title}
                         </h2>
                     )}
@@ -89,9 +89,8 @@ export default function ContentSection({ title, items, type, viewAllLink }) {
 
                 <div className="flex items-center gap-4">
                     {viewAllLink && (
-                        <Link href={viewAllLink} className="hidden md:flex items-center text-sm font-medium text-slate-400 hover:text-primary transition-colors gap-1">
+                        <Link href={viewAllLink} className="hidden md:flex items-center text-sm font-semibold text-white/50 hover:text-white transition-colors gap-1">
                             Tümünü Gör
-                            <ArrowRight size={16} />
                         </Link>
                     )}
 
@@ -99,14 +98,14 @@ export default function ContentSection({ title, items, type, viewAllLink }) {
                         <button
                             onClick={() => scroll('left')}
                             disabled={!canScrollLeft}
-                            className="p-2 rounded-none bg-card border border-border hover:bg-white hover:text-black transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:scale-110"
+                            className="p-2 lg:p-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-white hover:text-black transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:scale-105 backdrop-blur-md"
                         >
                             <ChevronLeft size={20} />
                         </button>
                         <button
                             onClick={() => scroll('right')}
                             disabled={!canScrollRight}
-                            className="p-2 rounded-none bg-card border border-border hover:bg-white hover:text-black transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:scale-110"
+                            className="p-2 lg:p-2.5 rounded-full bg-white/5 border border-white/10 hover:bg-white hover:text-black transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed hover:scale-105 backdrop-blur-md"
                         >
                             <ChevronRight size={20} />
                         </button>
@@ -130,7 +129,7 @@ export default function ContentSection({ title, items, type, viewAllLink }) {
                         style={{
                             animationDelay: `${index * 50}ms`,
                         }}
-                        className={`${isVisible ? 'animate-fade-in-up' : ''} flex-shrink-0 ${isHorizontal ? 'w-56 md:w-64' : 'w-36 md:w-40'}`}
+                        className={`${isVisible ? 'animate-fade-in-up' : ''} flex-shrink-0 ${isHorizontal ? 'w-56 md:w-64' : 'w-48 md:w-56'}`}
                     >
                         <ListingCard item={item} type={type} />
                     </div>

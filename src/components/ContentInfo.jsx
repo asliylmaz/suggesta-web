@@ -19,10 +19,12 @@ export default function ContentInfo({ item }) {
                 {/* Description Column */}
                 <div className="lg:col-span-2 space-y-6">
                     <div>
-                        <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
-                            <div className="h-1 w-4 bg-primary rounded-none" />
-                            <span>Açıklama</span>
-                        </h2>
+                        <div className="mb-6 flex flex-col items-start">
+                            <h2 className="text-3xl md:text-4xl font-black text-white italic tracking-tighter uppercase mb-2 flex items-center gap-3">
+                                Açıklama
+                            </h2>
+                            <div className="h-1 w-12 bg-zinc-700/50 rounded-full"></div>
+                        </div>
                         <div className="relative group">
                             <p className={cn(
                                 "text-muted-foreground leading-relaxed transition-all duration-500",
@@ -63,8 +65,12 @@ export default function ContentInfo({ item }) {
 
                 {/* Info Column */}
                 <div className="lg:col-span-1">
-                    <div className="bg-card/50 backdrop-blur-sm border border-border p-6 rounded-none sticky top-24">
-                        <h3 className="text-xl font-bold mb-6 border-b border-border pb-4">Detaylı Bilgi</h3>
+                    <div className="bg-card/50 backdrop-blur-sm border border-border p-6 rounded-[22px] sticky top-24 shadow-lg shadow-black/20">
+                        <div className="mb-6 flex flex-col items-start border-b border-border/50 pb-4">
+                            <h3 className="text-2xl md:text-3xl font-black text-white italic tracking-tighter uppercase mb-2 flex items-center gap-2">
+                                Detaylı <span className="text-zinc-500">Bilgi</span>
+                            </h3>
+                        </div>
                         <ul className="space-y-6">
                             {infoItems.map((info, idx) => (
                                 <li key={idx} className="flex items-start gap-4">

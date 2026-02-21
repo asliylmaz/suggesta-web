@@ -29,92 +29,84 @@ export default function PopularBooksSection({ title, items }) {
     };
 
     return (
-        <section className={`mb-24 py-12 bg-gradient-to-b from-transparent via-zinc-900/20 to-transparent transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <div className="container mx-auto px-4 mb-12 flex items-center justify-between">
+        <section className={`mb-24 py-12 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            {/* ── Header ── */}
+            <div className="container mx-auto px-4 mb-8 flex items-end justify-between">
                 <div>
-                    <h2 className="text-3xl md:text-5xl font-black text-white italic tracking-tighter uppercase mb-2">
-                        {title} <span className="text-zinc-600">Rafı</span>
+                    <h2 className="text-[clamp(24px,3vw,38px)] font-black italic tracking-tighter uppercase leading-tight font-sans">
+                        {title.split(' ').map((w, i) => (
+                            <span key={i} className={i % 2 !== 0 ? 'text-white/30 ml-2' : 'text-white ml-0'}>
+                                {w}
+                            </span>
+                        ))}
+                        <span className="text-white/30 ml-2">Rafı</span>
                     </h2>
-                    <p className="text-zinc-500 font-medium tracking-widest uppercase text-sm">En çok okunanlar</p>
+                    <div className="h-[3px] w-10 bg-white mt-2 rounded-sm" />
                 </div>
 
+                {/* Nav buttons */}
                 <div className="flex gap-2">
-                    <Button
+                    <button
                         onClick={() => handleScroll('left')}
-                        variant="outline"
-                        size="icon"
-                        className="rounded-none border-zinc-800 hover:bg-white hover:text-black"
+                        className="w-10 h-10 rounded-[12px] border border-white/10 bg-white/5 flex items-center justify-center text-white/75 hover:bg-white/10 hover:text-white transition-all backdrop-blur-md"
                     >
-                        <ChevronLeft className="size-5" />
-                    </Button>
-                    <Button
+                        <ChevronLeft size={18} />
+                    </button>
+                    <button
                         onClick={() => handleScroll('right')}
-                        variant="outline"
-                        size="icon"
-                        className="rounded-none border-zinc-800 hover:bg-white hover:text-black"
+                        className="w-10 h-10 rounded-[12px] border border-white/10 bg-white/5 flex items-center justify-center text-white/75 hover:bg-white/10 hover:text-white transition-all backdrop-blur-md"
                     >
-                        <ChevronRight className="size-5" />
-                    </Button>
+                        <ChevronRight size={18} />
+                    </button>
                 </div>
             </div>
 
             <div
                 ref={scrollRef}
-                className="flex gap-8 overflow-x-auto pb-16 px-4 scrollbar-hide snap-x perspective-1000"
+                className="flex gap-6 overflow-x-auto pb-8 px-4 scrollbar-hide snap-x"
                 style={{ scrollbarWidth: 'none' }}
             >
-                {items.map((item, index) => (
+                {items.map((item) => (
                     <div
                         key={item.id}
-                        className="group relative flex-shrink-0 w-48 md:w-56 snap-center perspective-1000"
+                        className="group relative flex-shrink-0 w-48 md:w-56 aspect-[2/3] rounded-[20px] overflow-hidden cursor-pointer border border-white/10 transition-all duration-500 hover:-translate-y-2 hover:border-white/20 hover:shadow-[0_20px_60px_rgba(0,0,0,0.6)] bg-white/5 backdrop-blur-xl snap-center"
                     >
-                        {/* Book Spine/3D Effect */}
-                        <div className="relative aspect-[2/3] transition-transform duration-500 group-hover:-translate-y-4 group-hover:rotate-y-[-10deg] transform-style-3d shadow-2xl">
-                            <img
-                                src={item.image}
-                                alt={item.title}
-                                className="w-full h-full object-cover rounded-sm shadow-[5px_0_10px_rgba(0,0,0,0.5)] border-r border-white/10"
-                            />
+                        {/* Image */}
+                        <img
+                            src={item.image}
+                            alt={item.title}
+                            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-80 group-hover:opacity-100"
+                        />
 
-                            {/* Overlay Info */}
-                            <div className="absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black via-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <div className="flex items-center gap-2 mb-2">
-                                    <div className="bg-white text-black text-xs font-black px-1.5 py-0.5 rounded-sm">
-                                        {item.rating}
-                                    </div>
-                                </div>
-                                <h3 className="text-lg font-bold text-white leading-tight line-clamp-2">
-                                    {item.title}
-                                </h3>
-                            </div>
+                        {/* Inner Shine */}
+                        <div className="absolute inset-0 top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none" />
+
+                        {/* Overlay Gradient */}
+                        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black via-black/50 to-transparent pointer-events-none" />
+
+                        {/* Badge */}
+                        <div className="absolute top-4 right-4 bg-black/50 backdrop-blur-md border border-white/10 text-white text-xs font-bold px-2 py-1 flex items-center gap-1 rounded-[10px]">
+                            <span className="text-yellow-400">★</span> {item.rating}
                         </div>
 
-                        {/* Reflection/Shadow */}
-                        <div className="absolute top-full left-0 w-full h-4 bg-black/50 blur-md rounded-[100%] transition-all duration-500 group-hover:w-[90%] group-hover:translate-x-[5%]" />
+                        {/* Overlay Info */}
+                        <div className="absolute inset-x-0 bottom-0 p-5 pointer-events-none flex flex-col justify-end">
+                            <h3 className="text-xl font-bold text-white leading-tight line-clamp-2 uppercase tracking-tight drop-shadow-md">
+                                {item.title}
+                            </h3>
 
-                        <div className="mt-6 opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-2 group-hover:translate-y-0 text-center">
-                            <Link href={`/detail/book/${item.id}`}>
-                                <Button size="sm" variant="outline" className="w-full rounded-none border-zinc-700 hover:bg-white hover:text-black hover:border-white">
-                                    <BookOpen className="size-4 mr-2" />
-                                    Detaylar
-                                </Button>
-                            </Link>
+                            <div className="mt-3 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 pointer-events-auto">
+                                <Link href={`/detail/book/${item.id}`} className="block">
+                                    <button className="w-full py-2.5 rounded-[12px] bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 text-xs font-bold tracking-wider uppercase backdrop-blur-md transition-all flex items-center justify-center gap-2">
+                                        <BookOpen size={14} />
+                                        Detaylar
+                                    </button>
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 ))}
             </div>
-
-            <style jsx>{`
-                .perspective-1000 {
-                    perspective: 1000px;
-                }
-                .transform-style-3d {
-                    transform-style: preserve-3d;
-                }
-                .rotate-y-[-10deg] {
-                    transform: rotateY(-10deg);
-                }
-            `}</style>
         </section>
     );
 }

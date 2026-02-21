@@ -29,7 +29,7 @@ export default function CategoryHub({ title, type, featuredItems = [], sections 
                 )}
 
                 {/* Horizontal Scrolling Sections */}
-                <div className="container mx-auto px-4 -mt-10 relative z-10">
+                <div className="w-full px-2 md:px-6 lg:px-10 -mt-24 relative z-40 space-y-8 md:space-y-12">
                     {sections.map((section, index) => (
                         <ContentSection
                             key={index}

@@ -36,15 +36,18 @@ const MyContentsList = () => {
 
     return (
         <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <div>
-                    <h2 className="text-2xl font-semibold mb-1">İçeriklerim</h2>
-                    <p className="text-sm text-muted-foreground">{mockContents.length} toplam içerik</p>
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 px-2">
+                <div className="flex flex-col items-start">
+                    <h2 className="text-3xl md:text-4xl font-black text-white italic tracking-tighter uppercase mb-2 flex items-center gap-3">
+                        İçeriklerim
+                    </h2>
+                    <div className="h-1 w-12 bg-zinc-700/50 rounded-full mb-2"></div>
+                    <p className="text-zinc-500 font-medium tracking-widest uppercase text-sm">{mockContents.length} toplam içerik</p>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-3">
                     <Select
-                        className="w-[140px]"
+                        className="w-[140px] bg-black/40 border-[1.5px] border-white/10 rounded-full px-4 font-semibold text-white/90 focus:ring-1 focus:ring-white/20"
                         placeholder="Tüm Tipler"
                         options={[
                             { value: "all", label: "Tümü" },
@@ -55,7 +58,7 @@ const MyContentsList = () => {
                         onChange={(e) => setFilter(e.target.value)}
                     />
                     <Select
-                        className="w-[140px]"
+                        className="w-[140px] bg-black/40 border-[1.5px] border-white/10 rounded-full px-4 font-semibold text-white/90 focus:ring-1 focus:ring-white/20"
                         placeholder="Sırala"
                         options={[
                             { value: "newest", label: "En Yeni" },
@@ -76,9 +79,9 @@ const MyContentsList = () => {
                         return (
                             <div key={type} className="space-y-6">
                                 <div className="flex items-center gap-4">
-                                    <h3 className="text-xl font-bold border-l-4 border-primary pl-4">{typeLabels[type]}</h3>
-                                    <div className="h-px flex-1 bg-border/50" />
-                                    <Badge variant="outline" className="text-muted-foreground">{contents.length}</Badge>
+                                    <h3 className="text-xl md:text-2xl font-black text-white italic tracking-tighter uppercase">{typeLabels[type]}</h3>
+                                    <div className="h-px flex-1 bg-white/10" />
+                                    <Badge variant="outline" className="text-zinc-400 border-white/20 font-bold bg-white/5">{contents.length}</Badge>
                                 </div>
 
                                 <div className={`grid gap-4 md:gap-6 ${isBooks
@@ -86,18 +89,18 @@ const MyContentsList = () => {
                                     : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
                                     }`}>
                                     {contents.map((content) => (
-                                        <div key={content.id} className="group relative bg-card border overflow-hidden shadow-sm hover:shadow-md transition-all">
+                                        <div key={content.id} className="group relative bg-black/40 border border-white/10 rounded-[14px] overflow-hidden shadow-sm hover:shadow-xl hover:shadow-white/5 transition-all">
                                             <div className={`relative overflow-hidden ${isBooks ? 'aspect-[2/3]' : 'aspect-[16/9]'}`}>
                                                 <img
                                                     src={content.image}
                                                     alt={content.title}
-                                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-90 group-hover:opacity-100"
                                                 />
-                                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                                                    <Button size="icon-sm" variant="secondary" className="rounded-none">
+                                                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3 backdrop-blur-sm">
+                                                    <Button size="icon-sm" className="rounded-full bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
                                                         <Edit2 className="size-4" />
                                                     </Button>
-                                                    <Button size="icon-sm" variant="destructive" className="rounded-none">
+                                                    <Button size="icon-sm" className="rounded-full bg-red-500/20 hover:bg-red-500 text-red-50 border border-red-500/30 shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 delay-75">
                                                         <Trash2 className="size-4" />
                                                     </Button>
                                                 </div>
@@ -110,11 +113,17 @@ const MyContentsList = () => {
                     })}
                 </div>
             ) : (
-                <div className="flex flex-col items-center justify-center py-20 bg-muted/30 rounded-none border-2 border-dashed">
-                    <Filter className="size-12 text-muted-foreground/30 mb-4" />
-                    <h3 className="text-lg font-medium text-muted-foreground">Henüz içerik eklemedin</h3>
-                    <p className="text-sm text-muted-foreground/60 mt-1">Eklediğin içerikler burada görünecek.</p>
-                    <Button variant="outline" className="mt-6 rounded-none">
+                <div className="flex flex-col items-center justify-center py-20 bg-black/20 rounded-[22px] border border-dashed border-white/20">
+                    <Filter className="size-12 text-white/20 mb-4" />
+                    <h3 className="text-lg font-bold text-white/80">Henüz içerik eklemedin</h3>
+                    <p className="text-sm text-zinc-500 mt-1">Eklediğin içerikler burada görünecek.</p>
+                    <Button
+                        className="mt-8 rounded-full px-8 text-black font-bold tracking-wide uppercase transition-all duration-300 transform hover:scale-105"
+                        style={{
+                            background: 'linear-gradient(90deg, #fff, #e5e5e5)',
+                            boxShadow: '0 4px 14px rgba(255,255,255,0.25)'
+                        }}
+                    >
                         İçerik Ekle
                     </Button>
                 </div>
