@@ -80,10 +80,10 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <RandomPick items={popularSeries} title="Dizi Önerisi" />
-            <RandomPick items={popularMovies} title="Film Önerisi" />
-            <RandomPick items={mockBooks} title="Kitap Önerisi" />
-            <RandomPick items={mockPlaces} title="Mekan Önerisi" />
+            <RandomPick type="tv" items={popularSeries} title="Dizi Önerisi" />
+            <RandomPick type="movie" items={popularMovies} title="Film Önerisi" />
+            <RandomPick type="books" items={mockBooks} title="Kitap Önerisi" />
+            <RandomPick type="places" items={mockPlaces} title="Mekan Önerisi" />
           </div>
         </div>
 
@@ -102,7 +102,7 @@ export default function HomePage() {
         />
 
         <PopularBooksSection
-          title="En Çok Okunanlar"
+          title="Popüler Kitaplar"
           items={mockBooks}
         />
 

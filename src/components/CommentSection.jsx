@@ -6,7 +6,7 @@ import CommentItem from './CommentItem';
 import RatingSummary from './RatingSummary';
 
 
-export default function CommentSection({ comments = [], stats }) {
+export default function CommentSection({ comments = [], stats, item }) {
     return (
         <section className="container mx-auto px-4 md:px-6 py-12 pb-24">
             <div className="text-center mb-12">
@@ -17,12 +17,12 @@ export default function CommentSection({ comments = [], stats }) {
                 <p className="text-zinc-500 font-medium tracking-widest uppercase text-sm">Ne Düşünüyorsunuz?</p>
             </div>
 
-            <div className="max-w-5xl mx-auto flex flex-col lg:flex-row items-start gap-6 mb-12">
-                <div className="w-full lg:w-5/7 flex">
+            <div className="max-w-5xl mx-auto flex flex-col lg:flex-row items-stretch gap-6 mb-12">
+                <div className="w-full lg:w-2/3 flex">
                     <CommentForm isLoggedIn={true} />
                 </div>
-                <div className="w-full lg:w-2/7 flex">
-                    <RatingSummary stats={stats} />
+                <div className="w-full lg:w-1/3 flex">
+                    <RatingSummary stats={stats} item={item} />
                 </div>
             </div>
 

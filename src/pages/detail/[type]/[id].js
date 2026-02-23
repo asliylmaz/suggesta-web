@@ -8,13 +8,14 @@ import ContentHeader from '@/components/ContentHeader';
 import ContentInfo from '@/components/ContentInfo';
 import CommentSection from '@/components/CommentSection';
 import RelatedContent from '@/components/RelatedContent';
-import { getMovieDetails, getTvDetails } from '@/lib/tmdbService';
+import { getMovieDetails, getTvDetails, getMovieReviews, getTvReviews } from '@/lib/tmdbService';
 
 export default function DetailPage() {
     const router = useRouter();
     const { type, id } = router.query;
 
     const [item, setItem] = useState(null);
+    const [comments, setComments] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -25,10 +26,18 @@ export default function DetailPage() {
             setIsLoading(true);
             try {
                 let data;
+                let reviewsData;
+
                 if (type === 'movie' || type === 'movies') {
-                    data = await getMovieDetails(id);
+                    [data, reviewsData] = await Promise.all([
+                        getMovieDetails(id),
+                        getMovieReviews(id)
+                    ]);
                 } else if (type === 'tv' || type === 'series') {
-                    data = await getTvDetails(id);
+                    [data, reviewsData] = await Promise.all([
+                        getTvDetails(id),
+                        getTvReviews(id)
+                    ]);
                 }
 
                 if (data) {
@@ -57,6 +66,10 @@ export default function DetailPage() {
                         categories: data.genres, // Map genres to categories
                         duration: durationStr
                     });
+
+                    if (reviewsData && reviewsData.results) {
+                        setComments(reviewsData.results);
+                    }
                 }
             } catch (err) {
                 console.error("Detail fetch error:", err);
@@ -115,12 +128,6 @@ export default function DetailPage() {
         );
     }
 
-    // Mock comments for now
-    const mockComments = [
-        { id: 1, username: 'Ahmet Yılmaz', rating: 10, date: '2 gün önce', text: 'Mükemmel bir yapım, kesinlikle tavsiye ederim.', likes: 12, dislikes: 0 },
-        { id: 2, username: 'Ayşe Demir', rating: 8, date: '1 hafta önce', text: 'Beklentimin üzerindeydi.', likes: 5, dislikes: 1 },
-    ];
-
     return (
         <main className="min-h-screen bg-background text-foreground selection:bg-primary/30">
             <Head>
@@ -136,7 +143,7 @@ export default function DetailPage() {
                 <ContentInfo item={item} />
 
                 {/* Comment Section */}
-                <CommentSection comments={mockComments} />
+                <CommentSection comments={comments} item={item} />
 
                 {/* Related Content */}
                 <RelatedContent type={type === 'tv' || type === 'series' ? 'series' : 'movies'} />

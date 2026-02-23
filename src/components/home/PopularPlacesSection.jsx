@@ -45,6 +45,11 @@ export default function PopularPlacesSection({ title, items }) {
 
                 {/* Nav buttons */}
                 <div className="flex gap-2">
+                    <Link href={`/places`} style={{ textDecoration: 'none' }}>
+                        <button className="w-24 h-10 rounded-[12px] border border-white/10 bg-white/5 flex items-center justify-center text-white/75 hover:bg-white/10 hover:text-white transition-all backdrop-blur-md">
+                            Tümü
+                        </button>
+                    </Link>
                     <button
                         onClick={() => handleScroll('left')}
                         className="w-10 h-10 rounded-[12px] border border-white/10 bg-white/5 flex items-center justify-center text-white/75 hover:bg-white/10 hover:text-white transition-all backdrop-blur-md"

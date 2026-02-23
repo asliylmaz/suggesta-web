@@ -40,13 +40,13 @@ export default function PopularMediaSection({ title, items, type }) {
             await Promise.all(items.map(async (item) => {
                 try {
                     const data = type === 'movies'
-                        ? await getMovieImages(item.id)
-                        : await getSeriesImages(item.id);
+                        ? await getMovieImages(item.id || item.externalId)
+                        : await getSeriesImages(item.id || item.externalId);
                     if (data?.logos?.length > 0) {
                         const logo = data.logos.find(l => l.iso_639_1 === 'tr')
                             || data.logos.find(l => l.iso_639_1 === 'en')
                             || data.logos[0];
-                        if (logo) map[item.id] = logo.filePath;
+                        if (logo) map[item.id || item.externalId] = logo.filePath;
                     }
                 } catch (_) { }
             }));
@@ -134,6 +134,11 @@ export default function PopularMediaSection({ title, items, type }) {
 
                 {/* Nav buttons */}
                 <div style={{ display: 'flex', gap: 8 }}>
+                    <Link href={`/${type}`} style={{ textDecoration: 'none' }}>
+                        <button className="w-24 h-10 rounded-[12px] border border-white/10 bg-white/5 flex items-center justify-center text-white/75 hover:bg-white/10 hover:text-white transition-all backdrop-blur-md">
+                            Tümü
+                        </button>
+                    </Link>
                     <NavBtn onClick={() => go('prev')} dir="left" />
                     <NavBtn onClick={() => go('next')} dir="right" />
                 </div>
@@ -175,7 +180,7 @@ export default function PopularMediaSection({ title, items, type }) {
                                 scale={scale}
                                 opacity={opacity}
                                 useAnim={useAnim}
-                                logo={logos[item.id]}
+                                logo={logos[item.id || item.externalId]}
                                 type={type}
                                 rank={i === vIdx ? realIdx + 1 : null}
                             />
@@ -327,7 +332,7 @@ function MediaCard({ item, isCenter, scale, opacity, useAnim, logo, type, rank }
 
                     {isCenter && (
                         <div style={{ display: 'flex', gap: 10 }}>
-                            <Link href={`/detail/${type}/${item.id}`} style={{ textDecoration: 'none' }}>
+                            <Link href={`/detail/${type}/${item.id || item.externalId}`} style={{ textDecoration: 'none' }}>
                                 <ActionBtn>İncele</ActionBtn>
                             </Link>
                             <RoundBtn><Heart size={16} /></RoundBtn>

@@ -34,7 +34,7 @@ export default function CommentForm({ isLoggedIn = true }) {
 
     return (
         <div
-            className="p-6 md:p-8 relative overflow-hidden w-full"
+            className="p-5 md:p-6 relative overflow-hidden w-full h-full flex flex-col justify-between"
             style={{
                 borderRadius: 22,
                 background: 'rgba(255,255,255,0.05)',
@@ -72,7 +72,7 @@ export default function CommentForm({ isLoggedIn = true }) {
                     </div>
                     <textarea
                         placeholder="Düşüncelerini paylaş..."
-                        className="w-full min-h-[120px] bg-black/40 border border-white/10 rounded-[14px] p-5 text-white/90 placeholder-white/20 focus:ring-1 focus:ring-white/20 focus:border-white/30 outline-none transition-all resize-none text-[15px] leading-relaxed"
+                        className="w-full min-h-[70px] bg-black/40 border border-white/10 rounded-[14px] p-4 text-white/90 placeholder-white/20 focus:ring-1 focus:ring-white/20 focus:border-white/30 outline-none transition-all resize-none text-[15px] leading-relaxed"
                     />
                     <div className="flex justify-end pt-2">
                         <button

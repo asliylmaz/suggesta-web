@@ -4,27 +4,22 @@
 import React from 'react';
 import { Star } from 'lucide-react';
 
-export default function RatingSummary({ stats }) {
-    // Mock data if stats not provided
-    const ratings = stats || [
-        { stars: 10, count: 45, percentage: 85 },
-        { stars: 9, count: 25, percentage: 70 },
-        { stars: 8, count: 12, percentage: 60 },
-        { stars: 7, count: 6, percentage: 40 },
-        { stars: 6, count: 4, percentage: 30 },
-        { stars: 5, count: 2, percentage: 20 },
-        { stars: 4, count: 1, percentage: 10 },
-        { stars: 3, count: 0, percentage: 0 },
-        { stars: 2, count: 0, percentage: 0 },
-        { stars: 1, count: 0, percentage: 0 },
-    ];
+export default function RatingSummary({ stats, item }) {
+    let totalVotes = 0;
+    let averageScore = "0.0";
 
-    const totalVotes = ratings.reduce((acc, curr) => acc + curr.count, 0);
+    if (item) {
+        totalVotes = item.tmdbVoteCount || item.vote_count || 0;
+        averageScore = item.tmdbVoteAverage ? item.tmdbVoteAverage.toFixed(1) : (item.rating || "0.0");
+    } else if (stats) {
+        totalVotes = stats.reduce((acc, curr) => acc + curr.count, 0);
+        // To strictly rely on TMDB, we won't show mock stats if item is missing
+    }
 
     return (
-        <div className="w-full flex mt-6 lg:mt-0">
+        <div className="w-full h-full flex mt-6 lg:mt-0">
             <div
-                className="relative flex-1 overflow-hidden flex flex-col items-center justify-center p-5 md:p-6 transition-all duration-300 gap-4 w-full"
+                className="relative flex-1 overflow-hidden flex flex-col items-center justify-center p-5 md:p-6 transition-all duration-300 gap-4 w-full h-full"
                 style={{
                     borderRadius: 22,
                     background: 'rgba(255,255,255,0.03)',
@@ -54,16 +49,16 @@ export default function RatingSummary({ stats }) {
                         İZLEYİCİLERİN <span className="text-zinc-500">Kararı</span>
                     </h2>
 
-                    <span className="text-5xl md:text-6xl font-black text-white mb-2 tracking-tighter drop-shadow-md leading-none">9.2</span>
+                    <span className="text-5xl md:text-6xl font-black text-white mb-2 tracking-tighter drop-shadow-md leading-none">{averageScore}</span>
                     <div className="flex gap-1 mb-2">
                         {[1, 2, 3, 4, 5].map((i) => (
-                            <Star key={i} size={14} className="text-yellow-500 fill-yellow-500 drop-shadow-sm" />
+                            <Star key={i} size={14} className={i <= Math.round(parseFloat(averageScore) / 2) ? "text-yellow-500 fill-yellow-500 drop-shadow-sm" : "text-white/20 fill-white/20"} />
                         ))}
                     </div>
                     <span className="text-white/50 font-semibold text-[10px] tracking-[0.2em] uppercase">{totalVotes} Toplam Oy</span>
                 </div>
 
-                {/* Bottom: Distribution Stats as Wrap Pills */}
+                {/* Bottom: Distribution Stats as Wrap Pills 
                 <div className="relative z-10 w-full flex flex-wrap justify-center gap-2 mt-2">
                     {ratings.filter(r => r.percentage > 0).map((rating) => (
                         <div key={rating.stars} className="flex items-center gap-1.5 bg-black/20 border border-white/5 px-2.5 py-1 rounded-lg">
@@ -74,6 +69,7 @@ export default function RatingSummary({ stats }) {
                         </div>
                     ))}
                 </div>
+                */}
 
             </div>
         </div>

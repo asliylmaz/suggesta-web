@@ -179,8 +179,8 @@ export default function HeroSection({ items, type }) {
                         <div className="flex gap-5">
                             {previewItems.map((item, idx) => (
                                 <div
-                                    key={`${item.id}-${idx}`}
-                                    onClick={() => selectItem(items.findIndex(i => i.id === item.id))}
+                                    key={`${item.id || item.externalId}-${idx}`}
+                                    onClick={() => selectItem(items.findIndex(i => (i.id || i.externalId) === (item.id || item.externalId)))}
                                     className={`group relative ${type === 'books' ? 'w-40 aspect-[2/3]' : 'w-56 aspect-[16/9]'} rounded-[15px] overflow-hidden cursor-pointer shadow-lg border border-white/10 hover:border-white/40 transition-all duration-300 hover:-translate-y-1 hover:shadow-primary/20 transform-gpu [mask-image:-webkit-radial-gradient(white,black)]`}
                                 >
                                     <img

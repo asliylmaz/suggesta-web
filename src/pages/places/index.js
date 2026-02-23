@@ -17,10 +17,10 @@ export default function PlacesPage() {
     const pageData = {
         featured: mockPlaces.slice(0, 5),
         sections: [
-            { title: 'Popüler Mekanlar', items: mockPlaces, link: '/yerler/popular' },
-            { title: 'Yeni Keşifler', items: mockPlaces.slice(5).concat(mockPlaces.slice(0, 5)), link: '/yerler/new' },
-            { title: 'Restoranlar', items: mockPlaces.reverse(), link: '/yerler/restaurants' },
-            { title: 'Kafeler', items: mockPlaces, link: '/yerler/cafes' },
+            { title: 'Popüler Mekanlar', items: mockPlaces, link: '/places/popular' },
+            { title: 'Yeni Keşifler', items: mockPlaces.slice(5).concat(mockPlaces.slice(0, 5)), link: '/places/new' },
+            { title: 'Restoranlar', items: mockPlaces.reverse(), link: '/places/restaurants' },
+            { title: 'Kafeler', items: mockPlaces, link: '/places/cafes' },
         ]
     };
 

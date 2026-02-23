@@ -16,10 +16,10 @@ export default function BooksPage() {
     const pageData = {
         featured: mockBooks.slice(0, 5),
         sections: [
-            { title: 'Çok Okunanlar', items: mockBooks, link: '/kitaplar/popular' },
-            { title: 'Yeni Çıkanlar', items: mockBooks.slice(5).concat(mockBooks.slice(0, 5)), link: '/kitaplar/new' },
-            { title: 'Edebiyat', items: mockBooks.reverse(), link: '/kitaplar/literature' },
-            { title: 'Kişisel Gelişim', items: mockBooks, link: '/kitaplar/self-help' },
+            { title: 'Çok Okunanlar', items: mockBooks, link: '/books/popular' },
+            { title: 'Yeni Çıkanlar', items: mockBooks.slice(5).concat(mockBooks.slice(0, 5)), link: '/books/new' },
+            { title: 'Edebiyat', items: mockBooks.reverse(), link: '/books/literature' },
+            { title: 'Kişisel Gelişim', items: mockBooks, link: '/books/self-help' },
         ]
     };
 

@@ -6,6 +6,22 @@ import { Star, ThumbsUp, ThumbsDown } from 'lucide-react';
 export default function CommentItem({ comment }) {
     const [h, setH] = useState(false);
 
+    // Provide fallbacks for tmdb api structure vs old mock structure
+    const authorName = comment.author || comment.username || 'Anonim';
+    const content = comment.content || comment.text || '';
+    const rating = comment.rating || (comment.author_details && comment.author_details.rating) || null;
+    let commentDate = comment.createdAt || comment.created_at || comment.date || '';
+
+    if (commentDate && (comment.createdAt || comment.created_at)) {
+        commentDate = new Date(commentDate).toLocaleDateString('tr-TR', {
+            year: 'numeric', month: 'long', day: 'numeric'
+        });
+    }
+
+    const avatarPath = comment.avatarPath || (comment.author_details && comment.author_details.avatar_path)
+        ? `https://image.tmdb.org/t/p/w185${comment.avatarPath || comment.author_details.avatar_path}`
+        : null;
+
     return (
         <div
             className="p-6 relative overflow-hidden transition-all duration-300 transform"
@@ -23,36 +39,32 @@ export default function CommentItem({ comment }) {
             }}
         >
             <div className="flex items-start gap-4 md:gap-5">
-                <div className="h-12 w-12 flex-shrink-0 rounded-[14px] bg-zinc-800/80 border border-white/10 flex items-center justify-center text-white/70 font-bold text-lg shadow-inner">
-                    {comment.username?.charAt(0)?.toUpperCase()}
+                <div className="h-12 w-12 flex-shrink-0 rounded-[14px] bg-zinc-800/80 border border-white/10 flex items-center justify-center text-white/70 font-bold text-lg shadow-inner overflow-hidden">
+                    {avatarPath ? (
+                        <img src={avatarPath} alt={authorName} className="w-full h-full object-cover" />
+                    ) : (
+                        authorName.charAt(0).toUpperCase()
+                    )}
                 </div>
 
                 <div className="flex-1">
                     <div className="flex items-start justify-between mb-3">
                         <div>
-                            <h4 className="font-bold text-white/90 font-sans tracking-tight text-[15px]">{comment.username}</h4>
-                            <span className="text-[11px] font-medium text-white/40 uppercase tracking-wider">{comment.date}</span>
+                            <h4 className="font-bold text-white/90 font-sans tracking-tight text-[15px]">{authorName}</h4>
+                            <span className="text-[11px] font-medium text-white/40 uppercase tracking-wider">{commentDate}</span>
                         </div>
-                        <div className="flex items-center gap-1.5 bg-black/40 px-3 py-1.5 rounded-full border border-white/10 shadow-inner">
-                            <Star className="text-yellow-500 fill-yellow-500" size={11} />
-                            <span className="text-white/90 font-bold text-[11px] tracking-wide">{comment.rating}</span>
-                        </div>
+                        {rating && (
+                            <div className="flex items-center gap-1.5 bg-black/40 px-3 py-1.5 rounded-full border border-white/10 shadow-inner">
+                                <Star className="text-yellow-500 fill-yellow-500" size={11} />
+                                <span className="text-white/90 font-bold text-[11px] tracking-wide">{rating}</span>
+                            </div>
+                        )}
                     </div>
 
-                    <p className="text-white/70 text-[14px] leading-relaxed mb-5 antialiased font-light">
-                        "{comment.text}"
-                    </p>
-
-                    <div className="flex items-center gap-6 pt-4 border-t border-white/5">
-                        <button className="flex items-center gap-2 text-[12px] font-medium text-white/40 hover:text-white transition-colors group">
-                            <ThumbsUp size={15} className="group-hover:-translate-y-0.5 transition-transform" />
-                            <span>({comment.likes})</span>
-                        </button>
-                        <button className="flex items-center gap-2 text-[12px] font-medium text-white/40 hover:text-white transition-colors group">
-                            <ThumbsDown size={15} className="group-hover:translate-y-0.5 transition-transform" />
-                            <span>({comment.dislikes})</span>
-                        </button>
-                    </div>
+                    <div
+                        className="text-white/70 text-[14px] leading-relaxed mb-5 antialiased font-light"
+                        dangerouslySetInnerHTML={{ __html: content.replace(/\n/g, '<br/>') }}
+                    />
                 </div>
             </div>
         </div>

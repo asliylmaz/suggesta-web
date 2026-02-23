@@ -60,3 +60,17 @@ export const getSeriesImages = async (id) => {
     const { data } = await api.get(`/tmdb/tv/${id}/images`);
     return data;
 };
+
+export const getMovieReviews = async (id, page = 1) => {
+    const { data } = await api.get(`/tmdb/movie/${id}/reviews`, {
+        params: { page }
+    });
+    return data;
+};
+
+export const getTvReviews = async (id, page = 1) => {
+    const { data } = await api.get(`/tmdb/tv/${id}/reviews`, {
+        params: { page }
+    });
+    return data;
+};

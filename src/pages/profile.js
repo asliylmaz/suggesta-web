@@ -7,6 +7,8 @@ import { MyContentsList } from "@/components/profile/sections/MyContentsList"
 import { ProfileSettings } from "@/components/profile/sections/ProfileSettings"
 import { Skeleton } from "@/components/ui/Skeleton"
 import Header from "@/components/Header"
+import { useAuth } from "@/context/AuthContext"
+
 
 // Mock user data
 const mockUser = {
@@ -16,6 +18,7 @@ const mockUser = {
 }
 
 export default function ProfilePage() {
+    const { user, logout } = useAuth()
     const [activeTab, setActiveTab] = React.useState("my-contents")
     const [loading, setLoading] = React.useState(true)
 
@@ -79,9 +82,9 @@ export default function ProfilePage() {
                     </div>
                 ) : (
                     <ProfileHeader
-                        user={mockUser}
+                        user={user || mockUser}
                         onEditProfile={() => setActiveTab("settings")}
-                        onLogout={() => console.log("Logout triggered")}
+                        onLogout={logout}
                     />
                 )}
 

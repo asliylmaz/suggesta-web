@@ -9,9 +9,9 @@ export default function Top10Section({ items = [], category = 'all', contentType
     const isBooks = contentType === 'books';
 
     const types = {
-        series: 'diziler',
-        movies: 'filmler',
-        books: 'kitaplar',
+        series: 'series',
+        movies: 'movies',
+        books: 'books',
     };
 
     const scroll = (direction) => {

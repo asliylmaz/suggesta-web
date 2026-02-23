@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, BookOpen } from 'lucide-react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 
 export default function PopularBooksSection({ title, items }) {
     const scrollRef = useRef(null);
@@ -39,13 +38,17 @@ export default function PopularBooksSection({ title, items }) {
                                 {w}
                             </span>
                         ))}
-                        <span className="text-white/30 ml-2">Rafı</span>
                     </h2>
                     <div className="h-[3px] w-10 bg-white mt-2 rounded-sm" />
                 </div>
 
                 {/* Nav buttons */}
                 <div className="flex gap-2">
+                    <Link href={`/books`} style={{ textDecoration: 'none' }}>
+                        <button className="w-24 h-10 rounded-[12px] border border-white/10 bg-white/5 flex items-center justify-center text-white/75 hover:bg-white/10 hover:text-white transition-all backdrop-blur-md">
+                            Tümü
+                        </button>
+                    </Link>
                     <button
                         onClick={() => handleScroll('left')}
                         className="w-10 h-10 rounded-[12px] border border-white/10 bg-white/5 flex items-center justify-center text-white/75 hover:bg-white/10 hover:text-white transition-all backdrop-blur-md"

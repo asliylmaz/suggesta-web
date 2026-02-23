@@ -9,7 +9,7 @@ import Top10Section from './Top10Section';
 import HeroSection from './HeroSection'; // Reuse as Hero
 import CategoryVisualSelector from './CategoryVisualSelector';
 import {
-    getMoviesByGenre,
+    getMoviesByGenre, getTvByGenre,
     getPopularMovies, getPopularSeries,
     getNowPlayingMovies
 } from '../lib/tmdbService';
@@ -90,7 +90,7 @@ export default function PageListing({ initialType = 'series', initialCategory = 
                         data = await getPopularSeries(currentPage);
                     } else if (selectedCategory !== 'all') {
                         // Use getTvByGenre for genre filtering
-                        data = await getMoviesByGenre(selectedCategory, currentPage);
+                        data = await getTvByGenre(selectedCategory, currentPage);
                     } else {
                         data = await getPopularSeries(currentPage);
                     }

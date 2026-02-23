@@ -37,12 +37,12 @@ export default function SeriesPage() {
                 setPageData({
                     featured: popular.results.slice(0, 10),
                     sections: [
-                        { title: 'Popüler Diziler', items: popular.results, link: '/diziler/popular' },
-                        { title: GENRE_NAMES[SERIES_GENRES.ACTION_ADVENTURE], items: actionAdv.results, link: `/diziler/${SERIES_GENRES.ACTION_ADVENTURE}` },
-                        { title: GENRE_NAMES[SERIES_GENRES.COMEDY], items: comedy.results, link: `/diziler/${SERIES_GENRES.COMEDY}` },
-                        { title: GENRE_NAMES[SERIES_GENRES.DRAMA], items: drama.results, link: `/diziler/${SERIES_GENRES.DRAMA}` },
-                        { title: GENRE_NAMES[SERIES_GENRES.SCI_FI_FANTASY], items: sciFiFantasy.results, link: `/diziler/${SERIES_GENRES.SCI_FI_FANTASY}` },
-                        { title: GENRE_NAMES[SERIES_GENRES.ANIMATION], items: animation.results, link: `/diziler/${SERIES_GENRES.ANIMATION}` },
+                        { title: 'Popüler Diziler', items: popular.results, link: '/series/popular' },
+                        { title: GENRE_NAMES[SERIES_GENRES.ACTION_ADVENTURE], items: actionAdv.results, link: `/series/${SERIES_GENRES.ACTION_ADVENTURE}` },
+                        { title: GENRE_NAMES[SERIES_GENRES.COMEDY], items: comedy.results, link: `/series/${SERIES_GENRES.COMEDY}` },
+                        { title: GENRE_NAMES[SERIES_GENRES.DRAMA], items: drama.results, link: `/series/${SERIES_GENRES.DRAMA}` },
+                        { title: GENRE_NAMES[SERIES_GENRES.SCI_FI_FANTASY], items: sciFiFantasy.results, link: `/series/${SERIES_GENRES.SCI_FI_FANTASY}` },
+                        { title: GENRE_NAMES[SERIES_GENRES.ANIMATION], items: animation.results, link: `/series/${SERIES_GENRES.ANIMATION}` },
                     ]
                 });
             } catch (error) {

@@ -3,6 +3,7 @@ import AdminLayout from '@/components/admin/AdminLayout';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/admin/ui/Card';
 import { Button } from '@/components/admin/ui/Button';
 import { Input } from '@/components/admin/ui/Input';
+import { useAuth } from '@/context/AuthContext';
 import {
     Settings as SettingsIcon,
     LogOut,
@@ -14,6 +15,7 @@ import {
 } from 'lucide-react';
 
 const SettingsPage = () => {
+    const { logout } = useAuth();
     return (
         <AdminLayout>
             <div className="max-w-4xl mx-auto space-y-8 animate-in fade-in duration-500">
@@ -107,7 +109,9 @@ const SettingsPage = () => {
                             <CardDescription className="text-destructive/70 italic">Kritik işlemleri buradan gerçekleştirebilirsiniz.</CardDescription>
                         </CardHeader>
                         <CardContent className="flex flex-col sm:flex-row items-center gap-4">
-                            <Button variant="outline" className="w-full sm:w-auto gap-2 border-destructive/20 hover:bg-destructive/10 text-destructive">
+                            <Button variant="outline"
+                                onClick={logout}
+                                className="w-full sm:w-auto gap-2 border-destructive/20 hover:bg-destructive/10 text-destructive">
                                 <LogOut size={16} />
                                 Oturumu Kapat
                             </Button>

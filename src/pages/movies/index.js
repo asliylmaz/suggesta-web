@@ -36,13 +36,13 @@ export default function MoviesPage() {
                 setPageData({
                     featured: popular.results.slice(0, 10), // Use popular for hero
                     sections: [
-                        { title: 'Vizyondakiler', items: nowPlaying.results, link: '/filmler/now-playing' },
-                        { title: 'Popüler Filmler', items: popular.results, link: '/filmler/popular' },
-                        { title: GENRE_NAMES[MOVIE_GENRES.ACTION], items: action.results, link: `/filmler/${MOVIE_GENRES.ACTION}` },
-                        { title: GENRE_NAMES[MOVIE_GENRES.COMEDY], items: comedy.results, link: `/filmler/${MOVIE_GENRES.COMEDY}` },
-                        { title: GENRE_NAMES[MOVIE_GENRES.DRAMA], items: drama.results, link: `/filmler/${MOVIE_GENRES.DRAMA}` },
-                        { title: GENRE_NAMES[MOVIE_GENRES.SCIENCE_FICTION], items: sciFi.results, link: `/filmler/${MOVIE_GENRES.SCIENCE_FICTION}` },
-                        { title: GENRE_NAMES[MOVIE_GENRES.HORROR], items: horror.results, link: `/filmler/${MOVIE_GENRES.HORROR}` },
+                        { title: 'Vizyondakiler', items: nowPlaying.results, link: '/movies/now-playing' },
+                        { title: 'Popüler Filmler', items: popular.results, link: '/movies/popular' },
+                        { title: GENRE_NAMES[MOVIE_GENRES.ACTION], items: action.results, link: `/movies/${MOVIE_GENRES.ACTION}` },
+                        { title: GENRE_NAMES[MOVIE_GENRES.COMEDY], items: comedy.results, link: `/movies/${MOVIE_GENRES.COMEDY}` },
+                        { title: GENRE_NAMES[MOVIE_GENRES.DRAMA], items: drama.results, link: `/movies/${MOVIE_GENRES.DRAMA}` },
+                        { title: GENRE_NAMES[MOVIE_GENRES.SCIENCE_FICTION], items: sciFi.results, link: `/movies/${MOVIE_GENRES.SCIENCE_FICTION}` },
+                        { title: GENRE_NAMES[MOVIE_GENRES.HORROR], items: horror.results, link: `/movies/${MOVIE_GENRES.HORROR}` },
                     ]
                 });
             } catch (error) {

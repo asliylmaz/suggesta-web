@@ -107,7 +107,7 @@ export default function OnboardingSlider() {
     /* ── Auto-play ── */
     useEffect(() => {
         if (!autoPlay) return;
-        const t = setInterval(goNext, 4200);
+        const t = setInterval(goNext, 1500);
         return () => clearInterval(t);
     }, [autoPlay, goNext]);
 

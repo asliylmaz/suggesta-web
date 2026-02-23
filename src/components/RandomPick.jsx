@@ -1,8 +1,9 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { Shuffle, Sparkles } from 'lucide-react';
 
-export default function RandomPick({ items, title = 'Bugün Ne İzlesem?' }) {
+export default function RandomPick({ type, items, title = 'Bugün Ne İzlesem?' }) {
     const [currentItems, setCurrentItems] = useState([]);
     const [isShuffling, setIsShuffling] = useState(false);
     const [hovered, setHovered] = useState(false);
@@ -86,7 +87,7 @@ export default function RandomPick({ items, title = 'Bugün Ne İzlesem?' }) {
             {/* Cards */}
             <div style={{ display: 'flex', gap: 12, position: 'relative' }}>
                 {currentItems.map((item, idx) => (
-                    <ItemCard key={idx} item={item} isShuffling={isShuffling} />
+                    <ItemCard key={idx} item={item} type={type} isShuffling={isShuffling} />
                 ))}
             </div>
 
@@ -97,10 +98,13 @@ export default function RandomPick({ items, title = 'Bugün Ne İzlesem?' }) {
 }
 
 /* ── Item Card ── */
-function ItemCard({ item, isShuffling }) {
+function ItemCard({ item, type, isShuffling }) {
     const [h, setH] = useState(false);
+    const router = useRouter();
+
     return (
         <div
+            onClick={() => router.push(`/detail/${type}/${item.id || item.externalId}`)}
             onMouseEnter={() => setH(true)}
             onMouseLeave={() => setH(false)}
             style={{

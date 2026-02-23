@@ -31,10 +31,10 @@ export default function Header() {
 
   const menuItems = [
     { label: 'Ana Sayfa', href: '/' },
-    { label: 'Diziler', href: '/diziler' },
-    { label: 'Filmler', href: '/filmler' },
-    { label: 'Kitaplar', href: '/kitaplar' },
-    { label: 'Yerler', href: '/yerler' },
+    { label: 'Diziler', href: '/series' },
+    { label: 'Filmler', href: '/movies' },
+    { label: 'Kitaplar', href: '/books' },
+    { label: 'Yerler', href: '/places' },
   ];
 
   const handleLogout = () => {
@@ -103,7 +103,7 @@ export default function Header() {
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
                 className="flex items-center gap-3 group"
               >
-                <div className="w-9 h-9 bg-zinc-800 border border-zinc-700 flex items-center justify-center group-hover:border-primary/50 group-hover:shadow-[0_0_10px_rgba(255,255,255,0.1)] transition-all duration-300 overflow-hidden">
+                <div className="w-9 h-9 rounded-full bg-zinc-800 border border-zinc-700 flex items-center justify-center group-hover:border-primary/50 group-hover:shadow-[0_0_10px_rgba(255,255,255,0.1)] transition-all duration-300 overflow-hidden">
                   <User size={18} className="text-zinc-300 group-hover:text-white" />
                 </div>
               </button>
@@ -133,11 +133,12 @@ export default function Header() {
             </div>
           ) : (
             <div className="flex items-center gap-3 ml-2">
-              <button className="text-sm font-medium text-white/80 hover:text-white transition-colors">
-                Giriş
+              <button
+                className="text-sm font-medium text-white/80 hover:text-white transition-colors">
+                <Link href="/login">Giriş</Link>
               </button>
               <button className="px-5 py-2 rounded-full text-sm font-bold bg-white text-black hover:bg-zinc-200 transition-colors shadow-lg hover:shadow-white/20">
-                Kayıt Ol
+                <Link href="/register">Kayıt Ol</Link>
               </button>
             </div>
           )}

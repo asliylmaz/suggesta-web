@@ -23,7 +23,8 @@ export const AuthProvider = ({ children }) => {
         setUser(userData);
         localStorage.setItem("user", JSON.stringify(userData));
         localStorage.setItem("token", token);
-        router.push("/");
+        if (userData.role === "admin") router.push("/admin");
+        else router.push("/");
     };
 
     const logout = () => {
