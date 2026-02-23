@@ -11,6 +11,7 @@ export default function ContentInfo({ item }) {
         { label: 'Kategori', value: item.categories?.join(', '), icon: Tag },
         { label: item.type === 'books' ? 'Sayfa Sayısı' : 'Süre', value: item.duration || item.pageCount, icon: item.type === 'books' ? BookOpen : Clock },
         { label: 'Dil', value: item.language, icon: Globe },
+        { label: 'Sezon Sayısı', value: (item.type === 'series' || item.type === 'tv') ? item.seasons : null, icon: Play },
     ].filter(i => i.value);
 
     return (
@@ -66,12 +67,12 @@ export default function ContentInfo({ item }) {
                 {/* Info Column */}
                 <div className="lg:col-span-1">
                     <div className="bg-card/50 backdrop-blur-sm border border-border p-6 rounded-[22px] sticky top-24 shadow-lg shadow-black/20">
-                        <div className="mb-6 flex flex-col items-start border-b border-border/50 pb-4">
+                        <div className="mb-6 flex flex-col items-start border-b border-border/50">
                             <h3 className="text-2xl md:text-3xl font-black text-white italic tracking-tighter uppercase mb-2 flex items-center gap-2">
                                 Detaylı <span className="text-zinc-500">Bilgi</span>
                             </h3>
                         </div>
-                        <ul className="space-y-6">
+                        <ul className="space-y-3">
                             {infoItems.map((info, idx) => (
                                 <li key={idx} className="flex items-start gap-4">
                                     <div className="p-2 rounded-none bg-accent/50 text-primary">

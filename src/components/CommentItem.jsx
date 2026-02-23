@@ -7,7 +7,7 @@ export default function CommentItem({ comment }) {
     const [h, setH] = useState(false);
 
     // Provide fallbacks for tmdb api structure vs old mock structure
-    const authorName = comment.author || comment.username || 'Anonim';
+    const authorName = comment.author || comment.username || comment.user.username || 'Anonim';
     const content = comment.content || comment.text || '';
     const rating = comment.rating || (comment.author_details && comment.author_details.rating) || null;
     let commentDate = comment.createdAt || comment.created_at || comment.date || '';

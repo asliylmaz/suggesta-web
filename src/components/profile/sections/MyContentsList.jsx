@@ -96,7 +96,7 @@ const MyContentsList = () => {
                                                     alt={content.title}
                                                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 opacity-90 group-hover:opacity-100"
                                                 />
-                                                <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3 backdrop-blur-sm">
+                                                <div className="absolute inset-0 rounded-[12px] bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3 backdrop-blur-sm">
                                                     <Button size="icon-sm" className="rounded-full bg-white/10 hover:bg-white text-white hover:text-black border border-white/20 shadow-lg transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
                                                         <Edit2 className="size-4" />
                                                     </Button>

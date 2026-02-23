@@ -1,12 +1,18 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import CommentForm from './CommentForm';
 import CommentItem from './CommentItem';
 import RatingSummary from './RatingSummary';
 
 
-export default function CommentSection({ comments = [], stats, item }) {
+export default function CommentSection({ comments = [], stats, item, type, isLoggedIn }) {
+    const [visibleCount, setVisibleCount] = useState(10);
+
+    const loadMore = () => {
+        setVisibleCount(prev => prev + 10);
+    };
+
     return (
         <section className="container mx-auto px-4 md:px-6 py-12 pb-24">
             <div className="text-center mb-12">
@@ -19,7 +25,7 @@ export default function CommentSection({ comments = [], stats, item }) {
 
             <div className="max-w-5xl mx-auto flex flex-col lg:flex-row items-stretch gap-6 mb-12">
                 <div className="w-full lg:w-2/3 flex">
-                    <CommentForm isLoggedIn={true} />
+                    <CommentForm isLoggedIn={isLoggedIn} item={item} type={type} />
                 </div>
                 <div className="w-full lg:w-1/3 flex">
                     <RatingSummary stats={stats} item={item} />
@@ -32,8 +38,8 @@ export default function CommentSection({ comments = [], stats, item }) {
                 {/* Comments List */}
                 <div className="space-y-4">
                     {comments.length > 0 ? (
-                        comments.map((comment) => (
-                            <CommentItem key={comment.id} comment={comment} />
+                        comments.slice(0, visibleCount).map((comment, idx) => (
+                            <CommentItem key={comment.id || idx} comment={comment} />
                         ))
                     ) : (
                         <div
@@ -49,9 +55,10 @@ export default function CommentSection({ comments = [], stats, item }) {
                     )}
                 </div>
 
-                {comments.length > 0 && (
+                {comments.length > visibleCount && (
                     <div className="flex justify-center pt-8">
                         <button
+                            onClick={loadMore}
                             className="text-sm font-bold tracking-widest uppercase text-white/80 hover:text-white transition-all transform hover:scale-105"
                             style={{
                                 padding: '14px 32px',

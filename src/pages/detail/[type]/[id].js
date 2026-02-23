@@ -3,15 +3,19 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
+import api from '@/lib/api';
 import Header from '@/components/Header';
 import ContentHeader from '@/components/ContentHeader';
 import ContentInfo from '@/components/ContentInfo';
 import CommentSection from '@/components/CommentSection';
 import RelatedContent from '@/components/RelatedContent';
 import { getMovieDetails, getTvDetails, getMovieReviews, getTvReviews } from '@/lib/tmdbService';
+import { useAuth } from '@/context/AuthContext';
 
 export default function DetailPage() {
     const router = useRouter();
+    const { user } = useAuth();
+    const isAuthenticated = !!user;
     const { type, id } = router.query;
 
     const [item, setItem] = useState(null);
@@ -27,16 +31,19 @@ export default function DetailPage() {
             try {
                 let data;
                 let reviewsData;
+                let dbReviews;
 
                 if (type === 'movie' || type === 'movies') {
-                    [data, reviewsData] = await Promise.all([
+                    [data, reviewsData, dbReviews] = await Promise.all([
                         getMovieDetails(id),
-                        getMovieReviews(id)
+                        getMovieReviews(id),
+                        api.get(`media/reviews/${id}`)
                     ]);
                 } else if (type === 'tv' || type === 'series') {
-                    [data, reviewsData] = await Promise.all([
+                    [data, reviewsData, dbReviews] = await Promise.all([
                         getTvDetails(id),
-                        getTvReviews(id)
+                        getTvReviews(id),
+                        api.get(`/media/reviews/${id}`)
                     ]);
                 }
 
@@ -64,11 +71,26 @@ export default function DetailPage() {
                         language: "Türkçe / İngilizce", // Placeholder or from API details if available
                         hasTrailer: false, // Placeholder until trailer support added
                         categories: data.genres, // Map genres to categories
-                        duration: durationStr
+                        duration: durationStr,
+                        seasons: data.seasons,
+                        episodes: data.episodes
                     });
 
-                    if (reviewsData && reviewsData.results) {
-                        setComments(reviewsData.results);
+                    let allComments = [];
+
+                    if (dbReviews) {
+                        const dbData = dbReviews.data || dbReviews;
+                        if (Array.isArray(dbData)) {
+                            allComments = [...allComments, ...dbData];
+                        }
+                    }
+
+                    if (reviewsData && Array.isArray(reviewsData.results)) {
+                        allComments = [...allComments, ...reviewsData.results];
+                    }
+
+                    if (allComments.length > 0) {
+                        setComments(allComments);
                     }
                 }
             } catch (err) {
@@ -143,7 +165,7 @@ export default function DetailPage() {
                 <ContentInfo item={item} />
 
                 {/* Comment Section */}
-                <CommentSection comments={comments} item={item} />
+                <CommentSection comments={comments} item={item} type={type} isLoggedIn={isAuthenticated} />
 
                 {/* Related Content */}
                 <RelatedContent type={type === 'tv' || type === 'series' ? 'series' : 'movies'} />

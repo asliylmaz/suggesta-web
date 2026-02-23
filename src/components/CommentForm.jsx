@@ -3,34 +3,45 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import RatingStars from '@/components/ui/RatingStars';
+import api from '@/lib/api';
+import { useRouter } from 'next/router';
 //import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'; // I'll assume standard avatar exists or create a simple one
 
-export default function CommentForm({ isLoggedIn = true }) {
+export default function CommentForm({ isLoggedIn = true, item, type }) {
+    const router = useRouter();
     const [rating, setRating] = useState(0);
+    const [comment, setComment] = useState("");
+    const handleSubmit = async () => {
+        const mediaId = item?.id || router.query?.id;
 
-    if (!isLoggedIn) {
-        return (
-            <div
-                className="p-8 relative overflow-hidden flex flex-col items-center justify-center text-center space-y-4 w-full"
-                style={{
-                    borderRadius: 22,
-                    background: 'rgba(255,255,255,0.02)',
-                    border: '1px dashed rgba(255,255,255,0.15)',
-                }}
-            >
-                <p className="text-white/60 font-medium">Yorum yapmak için giriş yapmalısınız.</p>
-                <Button
-                    className="rounded-full px-8 text-black hover:bg-white/90 font-bold transition-all transform hover:scale-105"
-                    style={{
-                        background: 'linear-gradient(90deg, #fff, #e5e5e5)',
-                        boxShadow: '0 4px 14px rgba(255,255,255,0.25)'
-                    }}
-                >
-                    Giriş Yap
-                </Button>
-            </div>
-        );
-    }
+        if (!mediaId) {
+            console.error("Yorum yapılacak içerik bulunamadı.");
+            return;
+        }
+        if (rating === 0 && !comment.trim()) {
+            console.error("Lütfen bir puan verin veya bir yorum yazın.");
+            return;
+        }
+
+        let parsedType = "movie";
+        if (type === "tv" || type === "series") {
+            parsedType = "tv";
+        }
+
+        try {
+            const response = await api.post("users/review", {
+                mediaId: String(mediaId),
+                tmdbType: parsedType,
+                rating: rating,
+                comment: comment
+            });
+            console.log("Değerlendirme eklendi:", response.data);
+            setRating(0);
+            setComment("");
+        } catch (error) {
+            console.error("Yorum eklenirken hata:", error);
+        }
+    };
 
     return (
         <div
@@ -58,7 +69,7 @@ export default function CommentForm({ isLoggedIn = true }) {
                 pointerEvents: 'none',
             }} />
 
-            <div className="flex items-start gap-4 md:gap-5 relative z-10">
+            <div className={`flex items-start gap-4 md:gap-5 relative z-10 transition-opacity duration-300 ${!isLoggedIn ? 'opacity-50' : 'opacity-100'}`}>
                 <div className="h-12 w-12 flex-shrink-0 rounded-[14px] bg-zinc-800 border border-white/10 flex items-center justify-center text-white/80 font-bold text-lg shadow-inner">
                     U
                 </div>
@@ -67,23 +78,49 @@ export default function CommentForm({ isLoggedIn = true }) {
                         <span className="font-bold text-white/90 font-sans tracking-tight text-lg">Siz</span>
                         <div className="flex items-center gap-3 bg-black/20 px-4 py-2 rounded-full border border-white/5">
                             <span className="text-[11px] font-bold text-white/50 uppercase tracking-widest mt-0.5">Puanınız</span>
-                            <RatingStars rating={rating} interactive onRatingChange={setRating} size={15} />
+                            <RatingStars
+                                rating={rating}
+                                interactive={isLoggedIn}
+                                onRatingChange={isLoggedIn ? setRating : undefined}
+                                size={15}
+                            />
                         </div>
                     </div>
-                    <textarea
-                        placeholder="Düşüncelerini paylaş..."
-                        className="w-full min-h-[70px] bg-black/40 border border-white/10 rounded-[14px] p-4 text-white/90 placeholder-white/20 focus:ring-1 focus:ring-white/20 focus:border-white/30 outline-none transition-all resize-none text-[15px] leading-relaxed"
-                    />
+
+                    <div className="relative">
+                        <textarea
+                            disabled={!isLoggedIn}
+                            placeholder={isLoggedIn ? "Düşüncelerini paylaş..." : "Yorum bırakmak veya puanlamak için giriş yapmalısınız."}
+                            value={comment}
+                            onChange={(e) => setComment(e.target.value)}
+                            className={`w-full min-h-[70px] bg-black/40 border border-white/10 rounded-[14px] p-4 text-white/90 focus:ring-1 focus:ring-white/20 focus:border-white/30 outline-none transition-all resize-none text-[15px] leading-relaxed ${!isLoggedIn ? 'cursor-not-allowed placeholder-white/40' : 'placeholder-white/20'}`}
+                        />
+                    </div>
+
                     <div className="flex justify-end pt-2">
-                        <button
-                            className="px-8 py-3 rounded-full text-black font-bold text-[13px] tracking-wide uppercase transition-all duration-300 transform hover:scale-105"
-                            style={{
-                                background: 'linear-gradient(90deg, #fff, #e5e5e5)',
-                                boxShadow: '0 4px 14px rgba(255,255,255,0.25)'
-                            }}
-                        >
-                            Yorumu Gönder
-                        </button>
+                        {isLoggedIn ? (
+                            <button
+                                className="px-8 py-3 rounded-full text-black font-bold text-[13px] tracking-wide uppercase transition-all duration-300 transform hover:scale-105"
+                                style={{
+                                    background: 'linear-gradient(90deg, #fff, #e5e5e5)',
+                                    boxShadow: '0 4px 14px rgba(255,255,255,0.25)'
+                                }}
+                                onClick={handleSubmit}
+                            >
+                                Yorumu Gönder
+                            </button>
+                        ) : (
+                            <Button
+                                className="px-8 py-3 rounded-full text-black font-bold text-[13px] tracking-wide uppercase transition-all duration-300 transform hover:scale-105"
+                                style={{
+                                    background: 'linear-gradient(90deg, #fff, #e5e5e5)',
+                                    boxShadow: '0 4px 14px rgba(255,255,255,0.25)'
+                                }}
+                                onClick={() => router.push('/login')}
+                            >
+                                Giriş Yap
+                            </Button>
+                        )}
                     </div>
                 </div>
             </div>
